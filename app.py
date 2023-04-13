@@ -3,7 +3,7 @@ import streamlit as st
 import pandas as pd
 import requests
 import datetime
-import bs4 from BeautifulSoup
+from bs4 import BeautifulSoup
 import re
 
 @st.cache_data
