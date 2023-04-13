@@ -1,9 +1,10 @@
 # Import needed libraries
+import streamlit as st
 import pandas as pd
 import requests
 import datetime
-import BeautifulSoup4
-import streamlit as st
+import bs4 from BeautifulSoup
+import re
 
 @st.cache_data
 def make_list():
