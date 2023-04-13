@@ -2,7 +2,7 @@
 import pandas as pd
 import requests
 import datetime
-from bs4 import BeautifulSoup
+import BeautifulSoup4
 import streamlit as st
 
 @st.cache_data
