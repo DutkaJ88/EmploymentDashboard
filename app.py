@@ -2,10 +2,9 @@
 import streamlit as st
 import pandas as pd
 import requests
-import datetime
 import openpyxl
 from bs4 import BeautifulSoup
-import re
+import plotly.express as px
 
 @st.cache_data
 def make_list():
@@ -157,6 +156,7 @@ ttPmindf = toowoombatimedf[toowoombatimedf.iloc[:,4] == toowoombatimedf.iloc[:,4
 
 st.title('Employment Dashboard')
 
+@st.cache_data
 def map_func():
     st.markdown('# Map Information')
     with st.container():
@@ -171,6 +171,7 @@ def map_func():
             with st.expander("More Information"):
                 st.write('More information on this object :)')
 
+@st.cache_data
 def snapshot_func():
     st.markdown('# Snapshot Data')
     st.markdown('## Unemployment Rate')
@@ -272,11 +273,76 @@ def snapshot_func():
             with st.expander("More Information"):
                 st.write('More information on this object :)')
 
+    st.markdown('### Other Key Figures')
+    with st.container():
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            st.write('Toowoomba SA4')
+            st.write('Data from: ', dateString)
+            st.write('Youth Unemployment (15-24yrs): ', toowoombasnapshotdf.iloc[0][6], '%')
+            st.write('Working Age Population (15-64yrs): ', toowoombasnapshotdf.iloc[0][1])
+            st.write('Employed (15+ yrs): ', toowoombasnapshotdf.iloc[0][2])
+            with st.expander("More Information"):
+                st.write('More information on this object :)')
+
+        with col2:
+            st.write('Darling Downs - Maranoa SA4')
+            st.write('Data from: ', dateString)
+            st.write('Youth Unemployment (15-24yrs): ', maranoasnapshotdf.iloc[0][6], '%')
+            st.write('Working Age Population (15-64yrs): ', maranoasnapshotdf.iloc[0][1])
+            st.write('Employed (15+ yrs): ', maranoasnapshotdf.iloc[0][2])
+            with st.expander("More Information"):
+                st.write('More information on this object :)')
+
+        with col3:
+            st.write('Queensland')
+            st.write('Data from: ', dateString)
+            st.write('Youth Unemployment (15-24yrs): ', qldsnapshotdf.iloc[0][6], '%')
+            st.write('Working Age Population (15-64yrs): ', qldsnapshotdf.iloc[0][1])
+            st.write('Employed (15+ yrs): ', qldsnapshotdf.iloc[0][2])
+            with st.expander("More Information"):
+                st.write('More information on this object :)')
+
+def timeseries_func():
+    st.markdown('# Time Series Data')
+    percent_label = "(%)"
+    with st.container():
+        st.write('### Toowoomba SA4')
+        st.write('Data from: ', dateString, ', displaying the last 5 years')
+        y_axis_valuet = st.selectbox('Select Toowoomba Time Series Data', options=toowoombatimedf.columns[-3:])
+        y_axis_valuet_title = y_axis_valuet + percent_label
+        figt = px.line(toowoombatimedf, x='Date', y=y_axis_valuet).update_layout(yaxis_title=y_axis_valuet_title)
+        st.plotly_chart(figt)
+        with st.expander("More Information"):
+            st.write('More information on this object :)')
+    
+    with st.container():
+        st.write('### Darling Downs - Maranoa SA4')
+        st.write('Data from: ', dateString, ', displaying the last 5 years')
+        y_axis_valuem = st.selectbox('Select Darling Downs - Maranoa Time Series Data', options=maranoatimedf.columns[-3:])
+        y_axis_valuem_title = y_axis_valuem + percent_label
+        figm = px.line(maranoatimedf, x='Date', y=y_axis_valuem).update_layout(yaxis_title=y_axis_valuem_title)
+        st.plotly_chart(figm)
+        with st.expander("More Information"):
+            st.write('More information on this object :)')
+    
+    with st.container():
+        st.write('### Queensland')
+        st.write('Data from: ', dateString, ', displaying the last 5 years')
+        y_axis_valueq = st.selectbox('Select Queensland Time Series Data', options=qldtimedf.columns[-3:])
+        y_axis_valueq_title = y_axis_valueq + percent_label
+        figq = px.line(qldtimedf, x='Date', y=y_axis_valueq).update_layout(yaxis_title=y_axis_valueq_title)
+        st.plotly_chart(figq)
+        with st.expander("More Information"):
+            st.write('More information on this object :)')
+
 
 st.sidebar.title('Navigation')
-options = st.sidebar.radio('Pages', options = ['Maps', 'Snapshot Data'])
+options = st.sidebar.radio('Pages', options = ['Maps', 'Snapshot Data', 'Time Series Data'])
 
 if options == 'Snapshot Data':
     snapshot_func()
 elif options == 'Maps':
     map_func()
+elif options == 'Time Series Data':
+    timeseries_func()
