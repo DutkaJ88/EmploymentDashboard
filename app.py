@@ -88,11 +88,63 @@ def make_ttimedf(dataFrame):
     df.reset_index(drop=True, inplace=True)
     return df
 
+@st.cache_data
+def make_qldlfdf():
+    df = pd.read_excel(labourforcelink, sheet_name=2)
+    df.drop(df[df['Region Name'] != "Queensland"].index, inplace = True)
+    df.reset_index(drop=True, inplace=True)
+    return df
+
+@st.cache_data
+def make_regionlfdf():
+    df = pd.read_excel(labourforcelink, sheet_name=1)
+    return df
+
+@st.cache_data
+def make_mlfdf(dataFrame):
+    df = dataFrame.loc[dataFrame['Region Name'] == "Darling Downs - Maranoa"]
+    df = df.drop('State/Territory', axis=1)
+    df.reset_index(drop=True, inplace=True)
+    return df
+
+@st.cache_data
+def make_tlfdf(dataFrame):
+    df = dataFrame.loc[dataFrame['Region Name'] == "Toowoomba"]
+    df = df.drop('State/Territory', axis=1)
+    df.reset_index(drop=True, inplace=True)
+    return df
+
+@st.cache_data
+def make_qldagedf():
+    df = pd.read_excel(agelink, sheet_name=2)
+    df.drop(df[df['Region Name'] != "Queensland"].index, inplace = True)
+    df.reset_index(drop=True, inplace=True)
+    return df
+
+@st.cache_data
+def make_regionagedf():
+    df = pd.read_excel(agelink, sheet_name=1)
+    return df
+
+@st.cache_data
+def make_magedf(dataFrame):
+    df = dataFrame.loc[dataFrame['Region Name'] == "Darling Downs - Maranoa"]
+    df = df.drop('State/Territory', axis=1)
+    df.reset_index(drop=True, inplace=True)
+    return df
+
+@st.cache_data
+def make_tagedf(dataFrame):
+    df = dataFrame.loc[dataFrame['Region Name'] == "Toowoomba"]
+    df = df.drop('State/Territory', axis=1)
+    df.reset_index(drop=True, inplace=True)
+    return df
+
 # Initialise variable of every list item, alternatively you could manually place links here for each xlsx file
 snapshotlink = make_list()[0]
 timelink = make_list()[1]
-#labourforcelink = make_list()[2]
-#agelink = make_list()[3]
+labourforcelink = make_list()[2]
+agelink = make_list()[3]
 #employmentindustrylink = make_list()[4]
 #employmentprojectionlink = make_list()[5]
 #occupationlink = make_list()[6]
@@ -153,6 +205,15 @@ ttEmindf = toowoombatimedf[toowoombatimedf.iloc[:,2] == toowoombatimedf.iloc[:,2
 ttPmaxdf = toowoombatimedf[toowoombatimedf.iloc[:,4] == toowoombatimedf.iloc[:,4].max()]
 ttPmindf = toowoombatimedf[toowoombatimedf.iloc[:,4] == toowoombatimedf.iloc[:,4].min()]
 
+qldlfdf = make_qldlfdf()
+regionlfdf = make_regionlfdf()
+mlfdf = make_mlfdf(regionlfdf)
+tlfdf = make_tlfdf(regionlfdf)
+
+qagedf = make_qldagedf()
+regionagedf = make_regionagedf()
+magedf = make_magedf(regionagedf)
+tagedf = make_tagedf(regionagedf)
 
 st.title('Employment Dashboard')
 
@@ -336,9 +397,87 @@ def timeseries_func():
         with st.expander("More Information"):
             st.write('More information on this object :)')
 
+@st.cache_data
+def labourforce_func():
+    st.markdown('# Labour Force Data')
+    with st.container():
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            st.write('Toowoomba SA4')
+            st.write('Data from: ', dateString)
+            tlftotal = tlfdf.iloc[0][2] + tlfdf.iloc[1][2] + tlfdf.iloc[2][2] + tlfdf.iloc[3][2]
+            st.write(tlfdf.iloc[0][1], ': ', tlfdf.iloc[0][2], 'persons.', ' ', round((tlfdf.iloc[0][2]/tlftotal*100), 1), '%')
+            st.write(tlfdf.iloc[1][1], ': ', tlfdf.iloc[1][2], 'persons.', ' ', round((tlfdf.iloc[1][2]/tlftotal*100), 1), '%')
+            st.write(tlfdf.iloc[2][1], ': ', tlfdf.iloc[2][2], 'persons.', ' ', round((tlfdf.iloc[2][2]/tlftotal*100), 1), '%')
+            st.write(tlfdf.iloc[3][1], ': ', tlfdf.iloc[3][2], 'persons.', ' ', round((tlfdf.iloc[3][2]/tlftotal*100), 1), '%')
+            with st.expander("More Information"):
+                st.write('More information on this object :)')
 
+        with col2:
+            st.write('Darling Downs - Maranoa SA4')
+            st.write('Data from: ', dateString)
+            mlftotal = mlfdf.iloc[0][2] + mlfdf.iloc[1][2] + mlfdf.iloc[2][2] + mlfdf.iloc[3][2]
+            st.write(mlfdf.iloc[0][1], ': ', mlfdf.iloc[0][2], 'persons', ' ', round((mlfdf.iloc[0][2]/mlftotal*100), 1), '%')
+            st.write(mlfdf.iloc[1][1], ': ', mlfdf.iloc[1][2], 'persons', ' ', round((mlfdf.iloc[1][2]/mlftotal*100), 1), '%')
+            st.write(mlfdf.iloc[2][1], ': ', mlfdf.iloc[2][2], 'persons', ' ', round((mlfdf.iloc[2][2]/mlftotal*100), 1), '%')
+            st.write(mlfdf.iloc[3][1], ': ', mlfdf.iloc[3][2], 'persons', ' ', round((mlfdf.iloc[3][2]/mlftotal*100), 1), '%')
+            with st.expander("More Information"):
+                st.write('More information on this object :)')
+
+        with col3:
+            st.write('Queensland')
+            st.write('Data from: ', dateString)
+            qlftotal = qldlfdf.iloc[0][2] + qldlfdf.iloc[1][2] + qldlfdf.iloc[2][2] + qldlfdf.iloc[3][2]
+            st.write(qldlfdf.iloc[0][1], ': ', qldlfdf.iloc[0][2], 'persons', ' ', round((qldlfdf.iloc[0][2]/qlftotal*100), 1), '%')
+            st.write(qldlfdf.iloc[1][1], ': ', qldlfdf.iloc[1][2], 'persons', ' ', round((qldlfdf.iloc[1][2]/qlftotal*100), 1), '%')
+            st.write(qldlfdf.iloc[2][1], ': ', qldlfdf.iloc[2][2], 'persons', ' ', round((qldlfdf.iloc[2][2]/qlftotal*100), 1), '%')
+            st.write(qldlfdf.iloc[3][1], ': ', qldlfdf.iloc[3][2], 'persons', ' ', round((qldlfdf.iloc[3][2]/qlftotal*100), 1), '%')
+            with st.expander("More Information"):
+                st.write('More information on this object :)')
+
+    st.markdown('# Labour Force Age Data')
+    with st.container():
+            st.write('### Toowoomba SA4')
+            st.write('Data from: ', dateString)
+            st.write(tagedf.columns[1],': ', tagedf.iloc[0][1], ' years', ': ', tagedf.iloc[0][2], ', ', tagedf.iloc[0][3], '%')
+            st.write(tagedf.columns[1],': ', tagedf.iloc[1][1], ' years', ': ', tagedf.iloc[1][2], ', ', tagedf.iloc[1][3], '%')
+            st.write(tagedf.columns[1],': ', tagedf.iloc[2][1], ' years', ': ', tagedf.iloc[2][2], ', ', tagedf.iloc[2][3], '%')
+            st.write(tagedf.columns[1],': ', tagedf.iloc[3][1], ' years', ': ', tagedf.iloc[3][2], ', ', tagedf.iloc[3][3], '%')
+            st.write(tagedf.columns[1],': ', tagedf.iloc[4][1], ' years', ': ', tagedf.iloc[4][2], ', ', tagedf.iloc[4][3], '%')
+            st.write(tagedf.columns[1],': ', '65 years and over', ': ', tagedf.iloc[5][2], ', ', tagedf.iloc[5][3], '%')
+            st.write(' ')
+            st.write(tagedf.columns[1],': Mature 55 years and over:', tagedf.iloc[5][2]+tagedf.iloc[4][2], ', ', tagedf.iloc[5][3]+tagedf.iloc[4][3], '%')
+            with st.expander("More Information"):
+                st.write('More information on this object :)')
+    with st.container():
+            st.write('### Darling downs - Maranoa SA4')
+            st.write('Data from: ', dateString)
+            st.write(magedf.columns[1],': ', magedf.iloc[0][1], ' years', ': ', magedf.iloc[0][2], ', ', magedf.iloc[0][3], '%')
+            st.write(magedf.columns[1],': ', magedf.iloc[1][1], ' years', ': ', magedf.iloc[1][2], ', ', magedf.iloc[1][3], '%')
+            st.write(magedf.columns[1],': ', magedf.iloc[2][1], ' years', ': ', magedf.iloc[2][2], ', ', magedf.iloc[2][3], '%')
+            st.write(magedf.columns[1],': ', magedf.iloc[3][1], ' years', ': ', magedf.iloc[3][2], ', ', magedf.iloc[3][3], '%')
+            st.write(magedf.columns[1],': ', magedf.iloc[4][1], ' years', ': ', magedf.iloc[4][2], ', ', magedf.iloc[4][3], '%')
+            st.write(magedf.columns[1],': ', '65 years and over', ': ', magedf.iloc[5][2], ', ', magedf.iloc[5][3], '%')
+            st.write(' ')
+            st.write(magedf.columns[1],': Mature 55 years and over:', magedf.iloc[5][2]+magedf.iloc[4][2], ', ', magedf.iloc[5][3]+magedf.iloc[4][3], '%')
+            with st.expander("More Information"):
+                st.write('More information on this object :)')
+    with st.container():
+            st.write('### Queensland')
+            st.write('Data from: ', dateString)
+            st.write(qagedf.columns[1],': ', qagedf.iloc[0][1], ' years', ': ', qagedf.iloc[0][2], ', ', qagedf.iloc[0][3], '%')
+            st.write(qagedf.columns[1],': ', qagedf.iloc[1][1], ' years', ': ', qagedf.iloc[1][2], ', ', qagedf.iloc[1][3], '%')
+            st.write(qagedf.columns[1],': ', qagedf.iloc[2][1], ' years', ': ', qagedf.iloc[2][2], ', ', qagedf.iloc[2][3], '%')
+            st.write(qagedf.columns[1],': ', qagedf.iloc[3][1], ' years', ': ', qagedf.iloc[3][2], ', ', qagedf.iloc[3][3], '%')
+            st.write(qagedf.columns[1],': ', qagedf.iloc[4][1], ' years', ': ', qagedf.iloc[4][2], ', ', qagedf.iloc[4][3], '%')
+            st.write(qagedf.columns[1],': ', '65 years and over', ': ', qagedf.iloc[5][2], ', ', qagedf.iloc[5][3], '%')
+            st.write(' ')
+            st.write(qagedf.columns[1],': Mature 55 years and over:', qagedf.iloc[5][2]+qagedf.iloc[4][2], ', ', qagedf.iloc[5][3]+qagedf.iloc[4][3], '%')
+            with st.expander("More Information"):
+                st.write('More information on this object :)')
+                    
 st.sidebar.title('Navigation')
-options = st.sidebar.radio('Pages', options = ['Maps', 'Snapshot Data', 'Time Series Data'])
+options = st.sidebar.radio('Pages', options = ['Maps', 'Snapshot Data', 'Time Series Data', 'Labour Force Data'])
 
 if options == 'Snapshot Data':
     snapshot_func()
@@ -346,3 +485,5 @@ elif options == 'Maps':
     map_func()
 elif options == 'Time Series Data':
     timeseries_func()
+elif options == 'Labour Force Data':
+    labourforce_func()
