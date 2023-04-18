@@ -140,18 +140,45 @@ def make_tagedf(dataFrame):
     df.reset_index(drop=True, inplace=True)
     return df
 
+@st.cache_data
+def make_qeidf():
+    df = pd.read_excel(employmentindustrylink, sheet_name=2)
+    df.drop(df[df['Region Name'] != "Queensland"].index, inplace = True)
+    df.reset_index(drop=True, inplace=True)
+    return df
+
+@st.cache_data
+def make_regioneidf():
+    df = pd.read_excel(employmentindustrylink, sheet_name=1)
+    return df
+
+@st.cache_data
+def make_meidf(dataFrame):
+    df = dataFrame.loc[dataFrame['Region Name'] == "Darling Downs - Maranoa"]
+    df = df.drop('State/Territory', axis=1)
+    df.reset_index(drop=True, inplace=True)
+    return df
+
+@st.cache_data
+def make_teidf(dataFrame):
+    df = dataFrame.loc[dataFrame['Region Name'] == "Toowoomba"]
+    df = df.drop('State/Territory', axis=1)
+    df.reset_index(drop=True, inplace=True)
+    return df
+
 # Initialise variable of every list item, alternatively you could manually place links here for each xlsx file
 snapshotlink = make_list()[0]
 timelink = make_list()[1]
 labourforcelink = make_list()[2]
 agelink = make_list()[3]
-#employmentindustrylink = make_list()[4]
-#employmentprojectionlink = make_list()[5]
+employmentindustrylink = make_list()[4]
+employmentprojectionlink = make_list()[5]
 #occupationlink = make_list()[6]
 #occupationemploymentlink = make_list()[7]
 
 #Create a string that contains the date of the data
 dateString = make_date(snapshotlink)
+dateStringProjections = make_date(employmentprojectionlink)
 # print(dateString)
 
 # Create dataframe for Queensland snapshot data
@@ -214,6 +241,11 @@ qagedf = make_qldagedf()
 regionagedf = make_regionagedf()
 magedf = make_magedf(regionagedf)
 tagedf = make_tagedf(regionagedf)
+
+qeidf = make_qeidf()
+regioneidf = make_regioneidf()
+meidf = make_meidf(regioneidf)
+teidf = make_teidf(regioneidf)
 
 st.title('Employment Dashboard')
 
@@ -372,8 +404,8 @@ def timeseries_func():
         st.write('Data from: ', dateString, ', displaying the last 5 years')
         y_axis_valuet = st.selectbox('Select Toowoomba Time Series Data', options=toowoombatimedf.columns[-3:])
         y_axis_valuet_title = y_axis_valuet + percent_label
-        figt = px.line(toowoombatimedf, x='Date', y=y_axis_valuet).update_layout(yaxis_title=y_axis_valuet_title)
-        st.plotly_chart(figt)
+        figtt = px.line(toowoombatimedf, x='Date', y=y_axis_valuet).update_layout(yaxis_title=y_axis_valuet_title)
+        st.plotly_chart(figtt)
         with st.expander("More Information"):
             st.write('More information on this object :)')
     
@@ -382,8 +414,8 @@ def timeseries_func():
         st.write('Data from: ', dateString, ', displaying the last 5 years')
         y_axis_valuem = st.selectbox('Select Darling Downs - Maranoa Time Series Data', options=maranoatimedf.columns[-3:])
         y_axis_valuem_title = y_axis_valuem + percent_label
-        figm = px.line(maranoatimedf, x='Date', y=y_axis_valuem).update_layout(yaxis_title=y_axis_valuem_title)
-        st.plotly_chart(figm)
+        figtm = px.line(maranoatimedf, x='Date', y=y_axis_valuem).update_layout(yaxis_title=y_axis_valuem_title)
+        st.plotly_chart(figtm)
         with st.expander("More Information"):
             st.write('More information on this object :)')
     
@@ -392,8 +424,8 @@ def timeseries_func():
         st.write('Data from: ', dateString, ', displaying the last 5 years')
         y_axis_valueq = st.selectbox('Select Queensland Time Series Data', options=qldtimedf.columns[-3:])
         y_axis_valueq_title = y_axis_valueq + percent_label
-        figq = px.line(qldtimedf, x='Date', y=y_axis_valueq).update_layout(yaxis_title=y_axis_valueq_title)
-        st.plotly_chart(figq)
+        figtq = px.line(qldtimedf, x='Date', y=y_axis_valueq).update_layout(yaxis_title=y_axis_valueq_title)
+        st.plotly_chart(figtq)
         with st.expander("More Information"):
             st.write('More information on this object :)')
 
@@ -475,9 +507,44 @@ def labourforce_func():
             st.write(qagedf.columns[1],': Mature 55 years and over:', qagedf.iloc[5][2]+qagedf.iloc[4][2], ', ', qagedf.iloc[5][3]+qagedf.iloc[4][3], '%')
             with st.expander("More Information"):
                 st.write('More information on this object :)')
-                    
+
+def employmentindustry_func():
+    st.markdown('# Employment by Industry')
+    with st.container():
+        st.write('### Toowoomba SA4')
+        st.write('Data from: ', dateString)
+        x_axis_value = st.selectbox('Select Toowoomba Industry Employment Figure', options=teidf.columns[2:7])
+        figeit = px.bar(teidf, x=x_axis_value, y=teidf.columns[1])
+        st.plotly_chart(figeit)
+        figeipiet = px.pie(teidf, values=teidf.columns[7], names=teidf.columns[1])
+        st.plotly_chart(figeipiet)
+        with st.expander("More Information"):
+            st.write('More information on this object :)')
+    
+    with st.container():
+        st.write('### Darling downs - Maranoa SA4')
+        st.write('Data from: ', dateString)
+        x_axis_value = st.selectbox('Select Darling Down - Maranoa Industry Employment Figure', options=meidf.columns[2:7])
+        figeim = px.bar(meidf, x=x_axis_value, y=meidf.columns[1])
+        st.plotly_chart(figeim)
+        figeipiem = px.pie(meidf, values=meidf.columns[7], names=meidf.columns[1])
+        st.plotly_chart(figeipiem)
+        with st.expander("More Information"):
+            st.write('More information on this object :)')
+
+    with st.container():
+        st.write('### Queensland')
+        st.write('Data from: ', dateString)
+        x_axis_value = st.selectbox('Select Queensland Industry Employment Figure', options=qeidf.columns[2:7])
+        figeiq = px.bar(qeidf, x=x_axis_value, y=qeidf.columns[1])
+        st.plotly_chart(figeiq)
+        figeipieq = px.pie(qeidf, values=qeidf.columns[7], names=qeidf.columns[1])
+        st.plotly_chart(figeipieq)
+        with st.expander("More Information"):
+            st.write('More information on this object :)')
+
 st.sidebar.title('Navigation')
-options = st.sidebar.radio('Pages', options = ['Maps', 'Snapshot Data', 'Time Series Data', 'Labour Force Data'])
+options = st.sidebar.radio('Pages', options = ['Maps', 'Snapshot Data', 'Time Series Data', 'Labour Force Data', 'Employment by Industry'])
 
 if options == 'Snapshot Data':
     snapshot_func()
@@ -487,3 +554,5 @@ elif options == 'Time Series Data':
     timeseries_func()
 elif options == 'Labour Force Data':
     labourforce_func()
+elif options == 'Employment by Industry':
+    employmentindustry_func()
