@@ -516,7 +516,7 @@ def employmentindustry_func():
         x_axis_value = st.selectbox('Select Toowoomba Industry Employment Figure', options=teidf.columns[2:7])
         figeit = px.bar(teidf, x=x_axis_value, y=teidf.columns[1])
         st.plotly_chart(figeit)
-        figeipiet = px.pie(teidf, values=teidf.columns[7], names=teidf.columns[1])
+        figeipiet = px.pie(teidf, values=teidf.columns[7], names=teidf.columns[1], title=teidf.columns[7])
         st.plotly_chart(figeipiet)
         with st.expander("More Information"):
             st.write('More information on this object :)')
@@ -527,7 +527,7 @@ def employmentindustry_func():
         x_axis_value = st.selectbox('Select Darling Down - Maranoa Industry Employment Figure', options=meidf.columns[2:7])
         figeim = px.bar(meidf, x=x_axis_value, y=meidf.columns[1])
         st.plotly_chart(figeim)
-        figeipiem = px.pie(meidf, values=meidf.columns[7], names=meidf.columns[1])
+        figeipiem = px.pie(meidf, values=meidf.columns[7], names=meidf.columns[1], title=meidf.columns[7])
         st.plotly_chart(figeipiem)
         with st.expander("More Information"):
             st.write('More information on this object :)')
@@ -538,7 +538,7 @@ def employmentindustry_func():
         x_axis_value = st.selectbox('Select Queensland Industry Employment Figure', options=qeidf.columns[2:7])
         figeiq = px.bar(qeidf, x=x_axis_value, y=qeidf.columns[1])
         st.plotly_chart(figeiq)
-        figeipieq = px.pie(qeidf, values=qeidf.columns[7], names=qeidf.columns[1])
+        figeipieq = px.pie(qeidf, values=qeidf.columns[7], names=qeidf.columns[1], title=qeidf.columns[7])
         st.plotly_chart(figeipieq)
         with st.expander("More Information"):
             st.write('More information on this object :)')
