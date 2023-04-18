@@ -596,7 +596,8 @@ def employmentindustry_func():
 
 @st.cache_data
 def employmentprojections_func():
-    st.markdown('# Employment projections for Toowoomba and Darling Downs - Maranoa')
+    st.markdown('# Employment Projections for Next 5 Years')
+    st.markdown('### Toowoomba and Darling Downs - Maranoa')
     st.write('Data from: ', dateStringProjections)
     mask = mtepdf[mtepdf['Industry'] != 'Total (industry)']
     figep = px.bar(mask, x=mask.columns[2], y=mask.columns[1])
