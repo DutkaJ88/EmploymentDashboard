@@ -555,7 +555,7 @@ def labourforce_func():
             st.write('Data from: ', dateStringAge)
             figaq = px.bar(qagedf, x=qagedf.columns[2], y=qagedf.columns[1], text=qagedf.columns[3])
             st.plotly_chart(figaq)
-            st.write('Combined Age Group total of (55 to 64) and (over 65) years old: ', qagedf.iloc[0][2]+qagedf.iloc[1][2], ', ', qagedf.iloc[1][3]+qagedf.iloc[1][3], '%')
+            st.write('Combined Age Group total of (55 to 64) and (over 65) years old: ', qagedf.iloc[0][2]+qagedf.iloc[1][2], ', ', qagedf.iloc[0][3]+qagedf.iloc[1][3], '%')
             with st.expander("More Information"):
                 st.write('More information on this object :)')
 
