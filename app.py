@@ -1,10 +1,14 @@
 # Import needed libraries
-import streamlit as st
 import pandas as pd
 import requests
-import openpyxl
 from bs4 import BeautifulSoup
+import streamlit as st
 import plotly.express as px
+import folium
+import geopandas
+from streamlit_folium import st_folium
+
+st.set_page_config(layout="wide")
 
 @st.cache_data
 def make_list():
@@ -230,6 +234,12 @@ def make_moedf(dataFrame):
     df.reset_index(drop=True, inplace=True)
     return df
 
+@st.cache_data
+def make_sa4Areas():
+    sa4Areas = geopandas.read_file('https://www.abs.gov.au/statistics/standards/australian-statistical-geography-standard-asgs-edition-3/jul2021-jun2026/access-and-downloads/digital-boundary-files/SA4_2021_AUST_SHP_GDA2020.zip')
+    #'https://www.abs.gov.au/statistics/standards/australian-statistical-geography-standard-asgs-edition-3/jul2021-jun2026/access-and-downloads/digital-boundary-files/SA4_2021_AUST_SHP_GDA2020.zip'
+    return sa4Areas
+
 # Initialise variable of every list item, alternatively you could manually place links here for each xlsx file
 snapshotlink = make_list()[0]
 timelink = make_list()[1]
@@ -328,20 +338,31 @@ regionoedf = make_regionoedf()
 moedf = make_moedf(regionoedf)
 toedf = make_toedf(regionoedf)
 
+strPercent = '%'
 st.title('Employment Dashboard')
 
-@st.cache_data
+
 def map_func():
     st.markdown('# Map Information')
     with st.container():
-        col1, col2 = st.columns(2)
+        col1,col2 = st.columns(2)
         with col1:
-            st.image("https://www.billcahill.com.au/wp-content/uploads/2020/01/image.png", caption='Toowoomba')
+            st.write('## Toowoomba SA4')
+            sa4AreasT = make_sa4Areas()
+            sa4AreasT = sa4AreasT.iloc[[65]]
+            mapt = folium.Map(location=[-27.566668, 151.949997], zoom_start=9)
+            folium.GeoJson(data=sa4AreasT["geometry"]).add_to(mapt)
+            st_data = st_folium(mapt, returned_objects=[])
             with st.expander("More Information"):
                 st.write('More information on this object :)')
-
+        
         with col2:
-            st.image("https://www.billcahill.com.au/wp-content/uploads/2020/01/image.png", caption='Darling Downs - Maranoa')
+            st.write('## Darling Downs - Maranoa SA4')
+            sa4AreasM = make_sa4Areas()
+            sa4AreasM = sa4AreasM.iloc[[55]]
+            mapm = folium.Map(location=[-27.529991, 150.582068], zoom_start=6)
+            folium.GeoJson(data=sa4AreasM["geometry"]).add_to(mapm)
+            st_data = st_folium(mapm, returned_objects=[])
             with st.expander("More Information"):
                 st.write('More information on this object :)')
 
@@ -352,28 +373,34 @@ def snapshot_func():
     with st.container():
         col1, col2, col3 = st.columns(3)
         with col1:
-            st.write('Toowoomba SA4')
+            st.write('### Toowoomba SA4')
             st.write('Data from: ', dateString)
-            st.write(toowoombasnapshotdf.iloc[0][5], '%')
+            st.metric(label='Unemployment Rate', value=str(toowoombasnapshotdf.iloc[0][5])+strPercent)
             st.write('Last 5 years')
-            st.write('Minimum Unemployment Rate: ', ttUEmindf.iloc[-1][3],'%',' on ',ttUEmindf.iloc[-1,1].strftime('%B-%Y'))
-            st.write('Maximum Unemployment Rate: ', ttUEmaxdf.iloc[-1][3],'%',' on ',ttUEmaxdf.iloc[-1,1].strftime('%B-%Y'))
+            st.metric(label='Minimum Unemployment Rate:', value=str(ttUEmindf.iloc[-1][3])+strPercent)
+            st.write('On ',ttUEmindf.iloc[-1,1].strftime('%B-%Y'))
+            st.metric(label='Maximum Unemployment Rate:', value=str(ttUEmaxdf.iloc[-1][3])+strPercent)
+            st.write('On ',ttUEmaxdf.iloc[-1,1].strftime('%B-%Y'))
 
         with col2:
-            st.write('Darling Downs - Maranoa SA4')
+            st.write('### Darling Downs - Maranoa SA4')
             st.write('Data from: ', dateString)
-            st.write(maranoasnapshotdf.iloc[0][5], '%')
+            st.metric(label='Unemployment Rate', value=str(maranoasnapshotdf.iloc[0][5])+strPercent)
             st.write('Last 5 years')
-            st.write('Minimum Unemployment Rate: ', mtUEmindf.iloc[-1][3],'%',' on ',mtUEmindf.iloc[-1,1].strftime('%B-%Y'))
-            st.write('Maximum Unemployment Rate: ', mtUEmaxdf.iloc[-1][3],'%',' on ',mtUEmaxdf.iloc[-1,1].strftime('%B-%Y'))
+            st.metric(label='Minimum Unemployment Rate:', value=str(mtUEmindf.iloc[-1][3])+strPercent)
+            st.write('On ',mtUEmindf.iloc[-1,1].strftime('%B-%Y'))
+            st.metric(label='Maximum Unemployment Rate:', value=str(mtUEmaxdf.iloc[-1][3])+strPercent)
+            st.write('On ',mtUEmaxdf.iloc[-1,1].strftime('%B-%Y'))
 
         with col3:
-            st.write('Queensland')
+            st.write('### Queensland SA4')
             st.write('Data from: ', dateString)
-            st.write(qldsnapshotdf.iloc[0][5], '%')
+            st.metric(label='Unemployment Rate', value=str(qldsnapshotdf.iloc[0][5])+strPercent)
             st.write('Last 5 years')
-            st.write('Minimum Unemployment Rate: ', qtUEmindf.iloc[-1][3],'%',' on ',qtUEmindf.iloc[-1,1].strftime('%B-%Y'))
-            st.write('Maximum Unemployment Rate: ', qtUEmaxdf.iloc[-1][3],'%',' on ',qtUEmaxdf.iloc[-1,1].strftime('%B-%Y'))
+            st.metric(label='Minimum Unemployment Rate:', value=str(qtUEmindf.iloc[-1][3])+strPercent)
+            st.write('On ',qtUEmindf.iloc[-1,1].strftime('%B-%Y'))
+            st.metric(label='Maximum Unemployment Rate:', value=str(qtUEmaxdf.iloc[-1][3])+strPercent)
+            st.write('On ',qtUEmaxdf.iloc[-1,1].strftime('%B-%Y'))
             
         with st.expander("More Information"):
             st.write('More information on this object :)')
@@ -382,28 +409,35 @@ def snapshot_func():
     with st.container():
         col1, col2, col3 = st.columns(3)
         with col1:
-            st.write('Toowoomba SA4')
+            st.write('### Toowoomba SA4')
             st.write('Data from: ', dateString)
-            st.write(toowoombasnapshotdf.iloc[0][3], '%')
+            st.metric(label='Employment Rate', value=str(toowoombasnapshotdf.iloc[0][3])+strPercent)
             st.write('Last 5 years')
-            st.write('Minimum Employment Rate: ', ttEmindf.iloc[-1][2],'%',' on ',ttEmindf.iloc[-1,1].strftime('%B-%Y'))
-            st.write('Maximum Employment Rate: ', ttEmaxdf.iloc[-1][2],'%',' on ',ttEmaxdf.iloc[-1,1].strftime('%B-%Y'))
+            st.metric(label='Minimum Employment Rate:', value=str(ttEmindf.iloc[-1][2])+strPercent)
+            st.write('On ',ttEmindf.iloc[-1,1].strftime('%B-%Y'))
+            st.metric(label='Maximum Employment Rate:', value=str(ttEmaxdf.iloc[-1][2])+strPercent)
+            st.write('On ',ttEmaxdf.iloc[-1,1].strftime('%B-%Y'))
 
         with col2:
-            st.write('Darling Downs - Maranoa SA4')
+            st.write('### Darling Downs - Maranoa SA4')
             st.write('Data from: ', dateString)
-            st.write(maranoasnapshotdf.iloc[0][3], '%')
+            st.metric(label='Employment Rate', value=str(maranoasnapshotdf.iloc[0][3])+strPercent)
             st.write('Last 5 years')
-            st.write('Minimum Employment Rate: ', mtEmindf.iloc[-1][2],'%',' on ',mtEmindf.iloc[-1,1].strftime('%B-%Y'))
-            st.write('Maximum Employment Rate: ', mtEmaxdf.iloc[-1][2],'%',' on ',mtEmaxdf.iloc[-1,1].strftime('%B-%Y'))
+            st.metric(label='Minimum Employment Rate:', value=str(mtEmindf.iloc[-1][2])+strPercent)
+            st.write('On ',mtEmindf.iloc[-1,1].strftime('%B-%Y'))
+            st.metric(label='Maximum Employment Rate:', value=str(mtEmaxdf.iloc[-1][2])+strPercent)
+            st.write('On ',mtEmaxdf.iloc[-1,1].strftime('%B-%Y'))
+
 
         with col3:
-            st.write('Queensland')
+            st.write('### Queensland SA4')
             st.write('Data from: ', dateString)
-            st.write(qldsnapshotdf.iloc[0][3], '%')
+            st.metric(label='Employment Rate', value=str(qldsnapshotdf.iloc[0][3])+strPercent)
             st.write('Last 5 years')
-            st.write('Minimum Employment Rate: ', qtEmindf.iloc[-1][2],'%',' on ',qtEmindf.iloc[-1,1].strftime('%B-%Y'))
-            st.write('Maximum Employment Rate: ', qtEmaxdf.iloc[-1][2],'%',' on ',qtEmaxdf.iloc[-1,1].strftime('%B-%Y'))
+            st.metric(label='Minimum Employment Rate:', value=str(qtEmindf.iloc[-1][2])+strPercent)
+            st.write('On ',qtEmindf.iloc[-1,1].strftime('%B-%Y'))
+            st.metric(label='Maximum Employment Rate:', value=str(qtEmaxdf.iloc[-1][2])+strPercent)
+            st.write('On ',qtEmaxdf.iloc[-1,1].strftime('%B-%Y'))
             
         with st.expander("More Information"):
             st.write('More information on this object :)')
@@ -412,28 +446,34 @@ def snapshot_func():
     with st.container():
         col1, col2, col3 = st.columns(3)
         with col1:
-            st.write('Toowoomba SA4')
+            st.write('### Toowoomba SA4')
             st.write('Data from: ', dateString)
-            st.write(toowoombasnapshotdf.iloc[0][4], '%')
+            st.metric(label='Participation Rate', value=str(toowoombasnapshotdf.iloc[0][4])+strPercent)
             st.write('Last 5 years')
-            st.write('Minimum Participation Rate: ', ttPmindf.iloc[-1][4],'%',' on ',ttPmindf.iloc[-1,1].strftime('%B-%Y'))
-            st.write('Maximum Participation Rate: ', ttPmaxdf.iloc[-1][4],'%',' on ',ttPmaxdf.iloc[-1,1].strftime('%B-%Y'))
+            st.metric(label='Minimum Participation Rate:', value=str(ttPmindf.iloc[-1][4])+strPercent)
+            st.write('On ',ttPmindf.iloc[-1,1].strftime('%B-%Y'))
+            st.metric(label='Maximum Participation Rate:', value=str(ttPmaxdf.iloc[-1][4])+strPercent)
+            st.write('On ',ttPmaxdf.iloc[-1,1].strftime('%B-%Y'))
 
         with col2:
-            st.write('Darling Downs - Maranoa SA4')
+            st.write('### Darling Downs - Maranoa SA4')
             st.write('Data from: ', dateString)
-            st.write(maranoasnapshotdf.iloc[0][4], '%')
+            st.metric(label='Participation Rate', value=str(maranoasnapshotdf.iloc[0][4])+strPercent)
             st.write('Last 5 years')
-            st.write('Minimum Participation Rate: ', mtPmindf.iloc[-1][4],'%',' on ',mtPmindf.iloc[-1,1].strftime('%B-%Y'))
-            st.write('Maximum Participation Rate: ', mtPmaxdf.iloc[-1][4],'%',' on ',mtPmaxdf.iloc[-1,1].strftime('%B-%Y'))
+            st.metric(label='Minimum Participation Rate:', value=str(mtPmindf.iloc[-1][4])+strPercent)
+            st.write('On ',mtPmindf.iloc[-1,1].strftime('%B-%Y'))
+            st.metric(label='Maximum Participation Rate:', value=str(mtPmaxdf.iloc[-1][4])+strPercent)
+            st.write('On ',mtPmaxdf.iloc[-1,1].strftime('%B-%Y'))
 
         with col3:
-            st.write('Queensland')
+            st.write('### Queensland SA4')
             st.write('Data from: ', dateString)
-            st.write(qldsnapshotdf.iloc[0][4], '%')
+            st.metric(label='Participation Rate', value=str(qldsnapshotdf.iloc[0][4])+strPercent)
             st.write('Last 5 years')
-            st.write('Minimum Participation Rate: ', qtEmindf.iloc[-1][4],'%',' on ',qtPmindf.iloc[-1,1].strftime('%B-%Y'))
-            st.write('Maximum Participation Rate: ', qtEmaxdf.iloc[-1][4],'%',' on ',qtPmaxdf.iloc[-1,1].strftime('%B-%Y'))
+            st.metric(label='Minimum Participation Rate:', value=str(qtEmindf.iloc[-1][4])+strPercent)
+            st.write('On ',qtEmindf.iloc[-1,1].strftime('%B-%Y'))
+            st.metric(label='Maximum Participation Rate:', value=str(qtEmaxdf.iloc[-1][4])+strPercent)
+            st.write('On ',qtEmaxdf.iloc[-1,1].strftime('%B-%Y'))
             
         with st.expander("More Information"):
             st.write('More information on this object :)')
@@ -442,25 +482,25 @@ def snapshot_func():
     with st.container():
         col1, col2, col3 = st.columns(3)
         with col1:
-            st.write('Toowoomba SA4')
+            st.write('### Toowoomba SA4')
             st.write('Data from: ', dateString)
-            st.write('Youth Unemployment (15-24yrs): ', toowoombasnapshotdf.iloc[0][6], '%')
-            st.write('Working Age Population (15-64yrs): ', toowoombasnapshotdf.iloc[0][1])
-            st.write('Employed (15+ yrs): ', toowoombasnapshotdf.iloc[0][2])
+            st.metric(label='Youth Unemployment (15-24yrs):', value=str(toowoombasnapshotdf.iloc[0][6])+strPercent)
+            st.metric(label='Working Age Population (15-64yrs): ', value=str(toowoombasnapshotdf.iloc[0][1]))
+            st.metric(label='Employed Population (15+ yrs): ', value=str(toowoombasnapshotdf.iloc[0][2]))
 
         with col2:
-            st.write('Darling Downs - Maranoa SA4')
+            st.write('### Darling Downs - Maranoa SA4')
             st.write('Data from: ', dateString)
-            st.write('Youth Unemployment (15-24yrs): ', maranoasnapshotdf.iloc[0][6], '%')
-            st.write('Working Age Population (15-64yrs): ', maranoasnapshotdf.iloc[0][1])
-            st.write('Employed (15+ yrs): ', maranoasnapshotdf.iloc[0][2])
+            st.metric(label='Youth Unemployment (15-24yrs):', value=str(maranoasnapshotdf.iloc[0][6])+strPercent)
+            st.metric(label='Working Age Population (15-64yrs): ', value=str(maranoasnapshotdf.iloc[0][1]))
+            st.metric(label='Employed Population (15+ yrs): ', value=str(maranoasnapshotdf.iloc[0][2]))
 
         with col3:
-            st.write('Queensland')
+            st.write('### Queensland SA4')
             st.write('Data from: ', dateString)
-            st.write('Youth Unemployment (15-24yrs): ', qldsnapshotdf.iloc[0][6], '%')
-            st.write('Working Age Population (15-64yrs): ', qldsnapshotdf.iloc[0][1])
-            st.write('Employed (15+ yrs): ', qldsnapshotdf.iloc[0][2])
+            st.metric(label='Youth Unemployment (15-24yrs):', value=str(qldsnapshotdf.iloc[0][6])+strPercent)
+            st.metric(label='Working Age Population (15-64yrs): ', value=str(qldsnapshotdf.iloc[0][1]))
+            st.metric(label='Employed Population (15+ yrs): ', value=str(qldsnapshotdf.iloc[0][2]))
             
         with st.expander("More Information"):
             st.write('More information on this object :)')
@@ -504,31 +544,31 @@ def labourforce_func():
     with st.container():
         col1, col2, col3 = st.columns(3)
         with col1:
-            st.write('Toowoomba SA4')
+            st.write('### Toowoomba SA4')
             st.write('Data from: ', dateStringLF)
             tlftotal = tlfdf.iloc[0][2] + tlfdf.iloc[1][2] + tlfdf.iloc[2][2] + tlfdf.iloc[3][2]
-            st.write(tlfdf.iloc[0][1], ': ', tlfdf.iloc[0][2], 'persons.', ' ', round((tlfdf.iloc[0][2]/tlftotal*100), 1), '%')
-            st.write(tlfdf.iloc[1][1], ': ', tlfdf.iloc[1][2], 'persons.', ' ', round((tlfdf.iloc[1][2]/tlftotal*100), 1), '%')
-            st.write(tlfdf.iloc[2][1], ': ', tlfdf.iloc[2][2], 'persons.', ' ', round((tlfdf.iloc[2][2]/tlftotal*100), 1), '%')
-            st.write(tlfdf.iloc[3][1], ': ', tlfdf.iloc[3][2], 'persons.', ' ', round((tlfdf.iloc[3][2]/tlftotal*100), 1), '%')
+            st.metric(label='Employed Full-time Persons', value=str(tlfdf.iloc[0][2])+', '+str(round((tlfdf.iloc[0][2]/tlftotal*100), 1))+strPercent)
+            st.metric(label='Employed Part-time Persons', value=str(tlfdf.iloc[1][2])+', '+str(round((tlfdf.iloc[1][2]/tlftotal*100), 1))+strPercent)
+            st.metric(label='Unemployed Total', value=str(tlfdf.iloc[2][2])+', '+str(round((tlfdf.iloc[2][2]/tlftotal*100), 1))+strPercent)
+            st.metric(label='Not in the Labour Force', value=str(tlfdf.iloc[3][2])+', '+str(round((tlfdf.iloc[3][2]/tlftotal*100), 1))+strPercent)
 
         with col2:
-            st.write('Darling Downs - Maranoa SA4')
+            st.write('### Darling Downs - Maranoa SA4')
             st.write('Data from: ', dateStringLF)
             mlftotal = mlfdf.iloc[0][2] + mlfdf.iloc[1][2] + mlfdf.iloc[2][2] + mlfdf.iloc[3][2]
-            st.write(mlfdf.iloc[0][1], ': ', mlfdf.iloc[0][2], 'persons', ' ', round((mlfdf.iloc[0][2]/mlftotal*100), 1), '%')
-            st.write(mlfdf.iloc[1][1], ': ', mlfdf.iloc[1][2], 'persons', ' ', round((mlfdf.iloc[1][2]/mlftotal*100), 1), '%')
-            st.write(mlfdf.iloc[2][1], ': ', mlfdf.iloc[2][2], 'persons', ' ', round((mlfdf.iloc[2][2]/mlftotal*100), 1), '%')
-            st.write(mlfdf.iloc[3][1], ': ', mlfdf.iloc[3][2], 'persons', ' ', round((mlfdf.iloc[3][2]/mlftotal*100), 1), '%')
+            st.metric(label='Employed Full-time Persons', value=str(mlfdf.iloc[0][2])+', '+str(round((mlfdf.iloc[0][2]/mlftotal*100), 1))+strPercent)
+            st.metric(label='Employed Part-time Persons', value=str(mlfdf.iloc[1][2])+', '+str(round((mlfdf.iloc[1][2]/mlftotal*100), 1))+strPercent)
+            st.metric(label='Unemployed Total', value=str(mlfdf.iloc[2][2])+', '+str(round((mlfdf.iloc[2][2]/mlftotal*100), 1))+strPercent)
+            st.metric(label='Not in the Labour Force', value=str(mlfdf.iloc[3][2])+', '+str(round((mlfdf.iloc[3][2]/mlftotal*100), 1))+strPercent)
 
         with col3:
-            st.write('Queensland')
+            st.write('### Queensland SA4')
             st.write('Data from: ', dateStringLF)
             qlftotal = qldlfdf.iloc[0][2] + qldlfdf.iloc[1][2] + qldlfdf.iloc[2][2] + qldlfdf.iloc[3][2]
-            st.write(qldlfdf.iloc[0][1], ': ', qldlfdf.iloc[0][2], 'persons', ' ', round((qldlfdf.iloc[0][2]/qlftotal*100), 1), '%')
-            st.write(qldlfdf.iloc[1][1], ': ', qldlfdf.iloc[1][2], 'persons', ' ', round((qldlfdf.iloc[1][2]/qlftotal*100), 1), '%')
-            st.write(qldlfdf.iloc[2][1], ': ', qldlfdf.iloc[2][2], 'persons', ' ', round((qldlfdf.iloc[2][2]/qlftotal*100), 1), '%')
-            st.write(qldlfdf.iloc[3][1], ': ', qldlfdf.iloc[3][2], 'persons', ' ', round((qldlfdf.iloc[3][2]/qlftotal*100), 1), '%')
+            st.metric(label='Employed Full-time Persons', value=str(qldlfdf.iloc[0][2])+', '+str(round((qldlfdf.iloc[0][2]/qlftotal*100), 1))+strPercent)
+            st.metric(label='Employed Part-time Persons', value=str(qldlfdf.iloc[1][2])+', '+str(round((qldlfdf.iloc[1][2]/qlftotal*100), 1))+strPercent)
+            st.metric(label='Unemployed Total', value=str(qldlfdf.iloc[2][2])+', '+str(round((qldlfdf.iloc[2][2]/qlftotal*100), 1))+strPercent)
+            st.metric(label='Not in the Labour Force', value=str(qldlfdf.iloc[3][2])+', '+str(round((qldlfdf.iloc[3][2]/qlftotal*100), 1))+strPercent)
             
         with st.expander("More Information"):
             st.write('More information on this object :)')
@@ -555,7 +595,7 @@ def labourforce_func():
             st.write('Data from: ', dateStringAge)
             figaq = px.bar(qagedf, x=qagedf.columns[2], y=qagedf.columns[1], text=qagedf.columns[3])
             st.plotly_chart(figaq)
-            st.write('Combined Age Group total of (55 to 64) and (over 65) years old: ', qagedf.iloc[0][2]+qagedf.iloc[1][2], ', ', qagedf.iloc[0][3]+qagedf.iloc[1][3], '%')
+            st.write('Combined Age Group total of (55 to 64) and (over 65) years old: ', qagedf.iloc[0][2]+qagedf.iloc[1][2], ', ', qagedf.iloc[1][3]+qagedf.iloc[1][3], '%')
             with st.expander("More Information"):
                 st.write('More information on this object :)')
 
