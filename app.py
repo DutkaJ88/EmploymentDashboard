@@ -649,7 +649,7 @@ def employmentprojections_func():
     mask = mtepdf[mtepdf['Industry'] != 'Total (industry)']
     figep = px.bar(mask, x=mask.columns[2], y=mask.columns[1])
     st.plotly_chart(figep)
-    st.write('Expected total job industry growth is: ', int(mtepdf.iloc[19][2]*1000))
+    st.metric(label='Expected total job industry growth is:', value=str(int(mtepdf.iloc[19][2]*1000)))
     figep2 = px.bar(mtepdf, x=mtepdf.columns[3], y=mtepdf.columns[1])
     st.plotly_chart(figep2)
     with st.expander("More Information"):
