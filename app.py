@@ -10,6 +10,13 @@ from streamlit_folium import st_folium
 
 st.set_page_config(layout="wide")
 
+hide_menu_style = """
+        <style>
+        #MainMenu {visibility: hidden;}
+        </style>
+        """
+st.markdown(hide_menu_style, unsafe_allow_html=True)
+
 @st.cache_data
 def make_list():
     # Use beautifulsoup to get all links from the data download pages that are xlsx files and put them in a list
