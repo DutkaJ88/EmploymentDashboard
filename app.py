@@ -586,7 +586,7 @@ def labourforce_func():
             st.write('Data from: ', dateStringAge)
             figat = px.bar(tagedf, x=tagedf.columns[2], y=tagedf.columns[1], text=tagedf.columns[3])
             st.plotly_chart(figat)
-            st.write('Combined Age Group total of (55 to 64) and (over 65) years old: ', tagedf.iloc[0][2]+tagedf.iloc[1][2], ', ', tagedf.iloc[0][3]+tagedf.iloc[1][3], '%')
+            st.metric(label='Combined Age Group total of (55 to 64) and (over 65) years old:', value=str(tagedf.iloc[0][2]+tagedf.iloc[1][2])+', '+str(tagedf.iloc[0][3]+tagedf.iloc[1][3])+strPercent)
             with st.expander("More Information"):
                 st.write('More information on this object :)')
     with st.container():
@@ -594,7 +594,7 @@ def labourforce_func():
             st.write('Data from: ', dateStringAge)
             figam = px.bar(magedf, x=magedf.columns[2], y=magedf.columns[1], text=magedf.columns[3])
             st.plotly_chart(figam)
-            st.write('Combined Age Group total of (55 to 64) and (over 65) years old: ', magedf.iloc[0][2]+magedf.iloc[1][2], ', ', magedf.iloc[0][3]+magedf.iloc[1][3], '%')
+            st.metric(label='Combined Age Group total of (55 to 64) and (over 65) years old:', value=str(magedf.iloc[0][2]+magedf.iloc[1][2])+', '+str(magedf.iloc[0][3]+magedf.iloc[1][3])+strPercent)
             with st.expander("More Information"):
                 st.write('More information on this object :)')
     with st.container():
@@ -602,7 +602,7 @@ def labourforce_func():
             st.write('Data from: ', dateStringAge)
             figaq = px.bar(qagedf, x=qagedf.columns[2], y=qagedf.columns[1], text=qagedf.columns[3])
             st.plotly_chart(figaq)
-            st.write('Combined Age Group total of (55 to 64) and (over 65) years old: ', qagedf.iloc[0][2]+qagedf.iloc[1][2], ', ', qagedf.iloc[1][3]+qagedf.iloc[1][3], '%')
+            st.metric(label='Combined Age Group total of (55 to 64) and (over 65) years old:', value=str(qagedf.iloc[0][2]+qagedf.iloc[1][2])+', '+str(qagedf.iloc[0][3]+qagedf.iloc[1][3])+strPercent)
             with st.expander("More Information"):
                 st.write('More information on this object :)')
 
