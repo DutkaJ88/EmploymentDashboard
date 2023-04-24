@@ -8,8 +8,10 @@ import folium
 import geopandas
 from streamlit_folium import st_folium
 
+# Sets the default page layout to wide to use
 st.set_page_config(layout="wide")
 
+#hide hamburger menu so that users can't rerun the application themselves
 hide_menu_style = """
         <style>
         #MainMenu {visibility: hidden;}
@@ -17,6 +19,7 @@ hide_menu_style = """
         """
 st.markdown(hide_menu_style, unsafe_allow_html=True)
 
+# Funtion to create a list of all the excel files locations on labour market insights webpage
 @st.cache_data
 def make_list():
     # Use beautifulsoup to get all links from the data download pages that are xlsx files and put them in a list
@@ -34,6 +37,7 @@ def make_list():
     return fullxlsx
     # print(fullxlsx)
 
+# Create a date from a file source, uses the date on the end of the excel document, will break if they change their naming conventions
 @st.cache_data
 def make_date(anylink):
     dateString = anylink.partition('_')[2]
@@ -41,6 +45,7 @@ def make_date(anylink):
     dateString = dateString.capitalize()
     return dateString
 
+# Create the dataframe for the snapshot of Queensland
 @st.cache_data
 def make_qldsnapshotdf(link):
     df = pd.read_excel(link, sheet_name=2)
@@ -48,11 +53,13 @@ def make_qldsnapshotdf(link):
     df.reset_index(drop=True, inplace=True)
     return df
 
+# Create a dataframe for the snapshot of regional areas
 @st.cache_data
 def make_regionsnapshotdf(link):
     df = pd.read_excel(link, sheet_name=1)
     return df
 
+# Create a dataframe for Maranoa snapshot
 @st.cache_data
 def make_Msnap(dataFrame):
     df = dataFrame.loc[dataFrame['Region'] == "Darling Downs - Maranoa"]
@@ -60,6 +67,7 @@ def make_Msnap(dataFrame):
     df.reset_index(drop=True, inplace=True)
     return df
 
+#Create a dataframe for Toowoomba snapshot
 @st.cache_data
 def make_Tsnap(dataFrame):
     df = dataFrame.loc[dataFrame['Region'] == "Toowoomba"]
@@ -67,6 +75,7 @@ def make_Tsnap(dataFrame):
     df.reset_index(drop=True, inplace=True)
     return df
 
+#Create a dataframe for the time series data of Queensland
 @st.cache_data
 def make_qtimedf(link):
     df = pd.read_excel(link, sheet_name=2)
@@ -76,11 +85,13 @@ def make_qtimedf(link):
     df.reset_index(drop=True, inplace=True)
     return df
 
+#Create a dataframe for the time series data of the regional areas
 @st.cache_data
 def make_regiontdf(link):
     df = pd.read_excel(timelink, sheet_name=1)
     return df
 
+#Create a dataframe of the timeseries data for Maranoa
 @st.cache_data
 def make_mtimedf(dataFrame):
     df = dataFrame.loc[dataFrame['Region'] == "Darling Downs - Maranoa"]
@@ -90,6 +101,7 @@ def make_mtimedf(dataFrame):
     df.reset_index(drop=True, inplace=True)
     return df
 
+#Create a dataframe of the timeseries data for Toowoomba
 @st.cache_data
 def make_ttimedf(dataFrame):
     df = dataFrame.loc[dataFrame['Region'] == "Toowoomba"]
@@ -99,6 +111,7 @@ def make_ttimedf(dataFrame):
     df.reset_index(drop=True, inplace=True)
     return df
 
+#Create a dataframe for the labour force data of Queensland
 @st.cache_data
 def make_qldlfdf():
     df = pd.read_excel(labourforcelink, sheet_name=2)
@@ -106,11 +119,13 @@ def make_qldlfdf():
     df.reset_index(drop=True, inplace=True)
     return df
 
+#Create a dataframe for the labour force data of the regional areas
 @st.cache_data
 def make_regionlfdf():
     df = pd.read_excel(labourforcelink, sheet_name=1)
     return df
 
+#Create a dataframe for the labour force data of Maranoa
 @st.cache_data
 def make_mlfdf(dataFrame):
     df = dataFrame.loc[dataFrame['Region Name'] == "Darling Downs - Maranoa"]
@@ -118,6 +133,7 @@ def make_mlfdf(dataFrame):
     df.reset_index(drop=True, inplace=True)
     return df
 
+#Create a dataframe for the labour force data of Toowoomba
 @st.cache_data
 def make_tlfdf(dataFrame):
     df = dataFrame.loc[dataFrame['Region Name'] == "Toowoomba"]
@@ -125,6 +141,7 @@ def make_tlfdf(dataFrame):
     df.reset_index(drop=True, inplace=True)
     return df
 
+#Create a dataframe for the labour force age data of Queensland
 @st.cache_data
 def make_qldagedf():
     df = pd.read_excel(agelink, sheet_name=2)
@@ -133,11 +150,13 @@ def make_qldagedf():
     df.reset_index(drop=True, inplace=True)
     return df
 
+#Create a dataframe for the labour force age data of the regional areas
 @st.cache_data
 def make_regionagedf():
     df = pd.read_excel(agelink, sheet_name=1)
     return df
 
+#Create a dataframe for the labour force age data of Maranoa
 @st.cache_data
 def make_magedf(dataFrame):
     df = dataFrame.loc[dataFrame['Region Name'] == "Darling Downs - Maranoa"]
@@ -146,6 +165,7 @@ def make_magedf(dataFrame):
     df.reset_index(drop=True, inplace=True)
     return df
 
+#Create a dataframe for the labour force age data of Toowoomba
 @st.cache_data
 def make_tagedf(dataFrame):
     df = dataFrame.loc[dataFrame['Region Name'] == "Toowoomba"]
@@ -154,6 +174,7 @@ def make_tagedf(dataFrame):
     df.reset_index(drop=True, inplace=True)
     return df
 
+#Create a dataframe for the employment by industry data of Queensland
 @st.cache_data
 def make_qeidf():
     df = pd.read_excel(employmentindustrylink, sheet_name=2)
@@ -161,11 +182,13 @@ def make_qeidf():
     df.reset_index(drop=True, inplace=True)
     return df
 
+#Create a dataframe for the employment by industry data of the regional areas
 @st.cache_data
 def make_regioneidf():
     df = pd.read_excel(employmentindustrylink, sheet_name=1)
     return df
 
+#Create a dataframe for the employment by industry data of Maranoa
 @st.cache_data
 def make_meidf(dataFrame):
     df = dataFrame.loc[dataFrame['Region Name'] == "Darling Downs - Maranoa"]
@@ -173,6 +196,7 @@ def make_meidf(dataFrame):
     df.reset_index(drop=True, inplace=True)
     return df
 
+#Create a dataframe for the employment by industry data of Toowoomba
 @st.cache_data
 def make_teidf(dataFrame):
     df = dataFrame.loc[dataFrame['Region Name'] == "Toowoomba"]
@@ -180,8 +204,9 @@ def make_teidf(dataFrame):
     df.reset_index(drop=True, inplace=True)
     return df
 
+#Create a dataframe for the employment projections of the regional areas of which include Maranoa and Toowoomba
 @st.cache_data
-def make_mtipdf():
+def make_mtepdf():
     df = pd.read_excel(employmentprojectionlink, sheet_name=1, skiprows=[0,1], header=0, names=['Region Name','Proxy Region (Greater City / Rest of State)','State/Territory','Industry','Projected Growth (\'000)','Projected Growth (%)'])
     df2 = df.loc[df['Region Name'] == "Darling Downs - Maranoa"]
     df2 = df2.drop('State/Territory', axis=1)
@@ -189,6 +214,7 @@ def make_mtipdf():
     df2.reset_index(drop=True, inplace=True)
     return df2
 
+#Create a dataframe for the largest employment occupations data of Queensland
 @st.cache_data
 def make_qodf():
     df = pd.read_excel(occupationlink, sheet_name=2)
@@ -196,11 +222,13 @@ def make_qodf():
     df.reset_index(drop=True, inplace=True)
     return df
 
+#Create a dataframe for the largest employment occupations data of the regional areas
 @st.cache_data
 def make_regionodf():
     df = pd.read_excel(occupationlink, sheet_name=1)
     return df
 
+#Create a dataframe for the largest employment occupations data of Maranoa
 @st.cache_data
 def make_todf(dataFrame):
     df = dataFrame.loc[dataFrame['Region Name'] == "Toowoomba"]
@@ -208,6 +236,7 @@ def make_todf(dataFrame):
     df.reset_index(drop=True, inplace=True)
     return df
 
+#Create a dataframe for the largest employment occupations data of Toowoomba
 @st.cache_data
 def make_modf(dataFrame):
     df = dataFrame.loc[dataFrame['Region Name'] == "Darling Downs - Maranoa"]
@@ -215,6 +244,7 @@ def make_modf(dataFrame):
     df.reset_index(drop=True, inplace=True)
     return df
 
+#Create a dataframe for the occupation by employment data of Queensland
 @st.cache_data
 def make_qoedf():
     df = pd.read_excel(occupationemploymentlink, sheet_name=2)
@@ -222,11 +252,13 @@ def make_qoedf():
     df.reset_index(drop=True, inplace=True)
     return df
 
+#Create a dataframe for the occupation by employment data of the regional areas
 @st.cache_data
 def make_regionoedf():
     df = pd.read_excel(occupationemploymentlink, sheet_name=1)
     return df
 
+#Create a dataframe for the occupation by employment data of Toowoomba
 @st.cache_data
 def make_toedf(dataFrame):
     df = dataFrame.loc[dataFrame['Region Name'] == "Toowoomba"]
@@ -234,6 +266,7 @@ def make_toedf(dataFrame):
     df.reset_index(drop=True, inplace=True)
     return df
 
+#Create a dataframe for the occupation by employment data of Maranoa
 @st.cache_data
 def make_moedf(dataFrame):
     df = dataFrame.loc[dataFrame['Region Name'] == "Darling Downs - Maranoa"]
@@ -241,17 +274,19 @@ def make_moedf(dataFrame):
     df.reset_index(drop=True, inplace=True)
     return df
 
+#Create a dataframe for geopandas containing the shapes of SA4 sreas in Australia
 @st.cache_data
 def make_sa4Areas():
     sa4Areas = geopandas.read_file('https://www.abs.gov.au/statistics/standards/australian-statistical-geography-standard-asgs-edition-3/jul2021-jun2026/access-and-downloads/digital-boundary-files/SA4_2021_AUST_SHP_GDA2020.zip')
     return sa4Areas
 
+#Create dataframe of a specific shape of an SA4 area, input is geopandas shape dataframe from australia and the ASGS code
 @st.cache_data
-def make_mapArea(_dataFrame, indexMap):
-    df = _dataFrame.iloc[[indexMap]]
+def make_mapArea(_dataFrame, sa4Code):
+    df = _dataFrame.loc[_dataFrame['SA4_CODE21'] == sa4Code]
     return df
 
-# Initialise variable of every list item, alternatively you could manually place links here for each xlsx file
+# Initialise variable of every excel document location, alternatively you could manually place links here for each xlsx file
 snapshotlink = make_list()[0]
 timelink = make_list()[1]
 labourforcelink = make_list()[2]
@@ -269,41 +304,37 @@ dateStringAge = make_date(agelink)
 dateStringEI = make_date(employmentindustrylink)
 dateStringLO = make_date(occupationlink)
 dateStringOE = make_date(occupationemploymentlink)
-# print(dateString)
 
 # Create dataframe for Queensland snapshot data
 qldsnapshotdf = make_qldsnapshotdf(snapshotlink)
-# print(qldsnapshotdf)
 
 # Create dataframe for all regions of snapshot data
 regionsnapshotdf = make_regionsnapshotdf(snapshotlink)
 
 # Create dataframe for snapshot of Maranoa
 maranoasnapshotdf = make_Msnap(regionsnapshotdf)
-# print(maranoasnapshotdf)
 
 # Create dataframe for snapshot of Toowoomba
 toowoombasnapshotdf = make_Tsnap(regionsnapshotdf)
-# print(toowoombasnapshotdf)
 
 # Create dataframe for time series of Queensland
 qldtimedf = make_qtimedf(timelink)
 
+#Create min and max values for Queensland timeseries
 qtUEmaxdf = qldtimedf[qldtimedf.iloc[:,3] == qldtimedf.iloc[:,3].max()]
 qtUEmindf = qldtimedf[qldtimedf.iloc[:,3] == qldtimedf.iloc[:,3].min()]
 qtEmaxdf = qldtimedf[qldtimedf.iloc[:,2] == qldtimedf.iloc[:,2].max()]
 qtEmindf = qldtimedf[qldtimedf.iloc[:,2] == qldtimedf.iloc[:,2].min()]
 qtPmaxdf = qldtimedf[qldtimedf.iloc[:,4] == qldtimedf.iloc[:,4].max()]
 qtPmindf = qldtimedf[qldtimedf.iloc[:,4] == qldtimedf.iloc[:,4].min()]
-# print(qldtimedf)
 
 # Create dataframe for time series of region
 regiontimedf = make_regiontdf(timelink)
 
 # Create dataframe for time series of Maranoa
 maranoatimedf = make_mtimedf(regiontimedf)
-# print(maranoatimedf)
 
+#Create min and max values for Maranoa timeseries
 mtUEmaxdf = maranoatimedf[maranoatimedf.iloc[:,3] == maranoatimedf.iloc[:,3].max()]
 mtUEmindf = maranoatimedf[maranoatimedf.iloc[:,3] == maranoatimedf.iloc[:,3].min()]
 mtEmaxdf = maranoatimedf[maranoatimedf.iloc[:,2] == maranoatimedf.iloc[:,2].max()]
@@ -313,8 +344,8 @@ mtPmindf = maranoatimedf[maranoatimedf.iloc[:,4] == maranoatimedf.iloc[:,4].min(
 
 # Create dataframe for time series of Toowoomba
 toowoombatimedf = make_ttimedf(regiontimedf)
-# print(toowoombatimedf)
 
+#Create min and max values for Toowoomba timeseries
 ttUEmaxdf = toowoombatimedf[toowoombatimedf.iloc[:,3] == toowoombatimedf.iloc[:,3].max()]
 ttUEmindf = toowoombatimedf[toowoombatimedf.iloc[:,3] == toowoombatimedf.iloc[:,3].min()]
 ttEmaxdf = toowoombatimedf[toowoombatimedf.iloc[:,2] == toowoombatimedf.iloc[:,2].max()]
@@ -322,37 +353,46 @@ ttEmindf = toowoombatimedf[toowoombatimedf.iloc[:,2] == toowoombatimedf.iloc[:,2
 ttPmaxdf = toowoombatimedf[toowoombatimedf.iloc[:,4] == toowoombatimedf.iloc[:,4].max()]
 ttPmindf = toowoombatimedf[toowoombatimedf.iloc[:,4] == toowoombatimedf.iloc[:,4].min()]
 
+#Create labour force dataframes
 qldlfdf = make_qldlfdf()
 regionlfdf = make_regionlfdf()
 mlfdf = make_mlfdf(regionlfdf)
 tlfdf = make_tlfdf(regionlfdf)
 
+#Create labourforce age dataframes
 qagedf = make_qldagedf()
 regionagedf = make_regionagedf()
 magedf = make_magedf(regionagedf)
 tagedf = make_tagedf(regionagedf)
 
+#Create Employment by Industry dataframes
 qeidf = make_qeidf()
 regioneidf = make_regioneidf()
 meidf = make_meidf(regioneidf)
 teidf = make_teidf(regioneidf)
 
-mtepdf = make_mtipdf()
+#Create employment projection dataframe
+mtepdf = make_mtepdf()
 
+#Create Largest Employment OCcupation dataframes
 qodf = make_qodf()
 regionodf = make_regionodf()
 modf = make_modf(regionodf)
 todf = make_todf(regionodf)
 
+#Create Employment by Occupation dataframes
 qoedf = make_qoedf()
 regionoedf = make_regionoedf()
 moedf = make_moedf(regionoedf)
 toedf = make_toedf(regionoedf)
 
+#String variable for adding a percentage sign
 strPercent = '%'
+
+#Title for dashboard
 st.title('Employment Dashboard')
 
-
+#Function for map page
 def map_func():
     st.markdown('# Map Information')
     with st.container():
@@ -360,7 +400,7 @@ def map_func():
         with col1:
             st.write('## Toowoomba SA4')
             sa4AreasT = make_sa4Areas()
-            sa4AreasT = make_mapArea(sa4AreasT, 65)
+            sa4AreasT = make_mapArea(sa4AreasT, '317')
             mapt = folium.Map(location=[-27.566668, 151.949997], zoom_start=9)
             folium.GeoJson(data=sa4AreasT["geometry"]).add_to(mapt)
             st_data = st_folium(mapt, returned_objects=[])
@@ -372,7 +412,7 @@ def map_func():
         with col2:
             st.write('## Darling Downs - Maranoa SA4')
             sa4AreasM = make_sa4Areas()
-            sa4AreasM = make_mapArea(sa4AreasM, 55)
+            sa4AreasM = make_mapArea(sa4AreasM, '307')
             mapm = folium.Map(location=[-27.529991, 150.582068], zoom_start=6)
             folium.GeoJson(data=sa4AreasM["geometry"]).add_to(mapm)
             st_data = st_folium(mapm, returned_objects=[])
@@ -381,6 +421,7 @@ def map_func():
                 st.write('The Darling Downs is the southernmost part of the region and is a vast expanse of flat to undulating agricultural land. It is known for its fertile soils and is an important agricultural region, with crops such as wheat, sorghum, cotton, and vegetables grown throughout the area. The region is also home to a number of important natural features, including the Bunya Mountains National Park and the Carnarvon Gorge.')
                 st.write('The Maranoa region is located to the west of the Darling Downs and is a semi-arid landscape dominated by grasslands and woodlands. The region is characterized by its rugged mountain ranges, including the Great Dividing Range, the Carnarvon Range, and the Expedition Range. The Maranoa is also home to several national parks, including the Maranoa-Balonne and the Idalia National Parks.')
 
+#Function for snapshot page
 @st.cache_data
 def snapshot_func():
     st.markdown('# Snapshot Data')
@@ -541,6 +582,7 @@ def snapshot_func():
             st.write('The employed population is the must current record of original data')
             st.write('Queensland data has been seasonally adjusted')
 
+#Function for timeseries page
 def timeseries_func():
     st.markdown('# Time Series Data')
     percent_label = "(%)"
@@ -593,6 +635,7 @@ def timeseries_func():
             st.write('The data above is a rolling average of the previous 3 months of original data')
             st.write('Data has been seasonally adjusted')
 
+#Function for labour force page
 @st.cache_data
 def labourforce_func():
     st.markdown('# Labour Force Data')
@@ -659,6 +702,7 @@ def labourforce_func():
             with st.expander("More Information"):
                 st.write('Figures based on an average of the last 12 months, with the percentage representing the portion of the categories avaliable.')
 
+#Function for employment by industry page
 def employmentindustry_func():
     st.markdown('# Employment by Industry')
     with st.container():
@@ -706,6 +750,7 @@ def employmentindustry_func():
             st.write('+ Employed female: Reported sex.')
             st.write('Figures are based on four-quarter averages.')
 
+#Function for employment projections page
 @st.cache_data
 def employmentprojections_func():
     st.markdown('# Employment Projections for Next 5 Years')
@@ -721,6 +766,7 @@ def employmentprojections_func():
             st.write('This data comes from Jobs and Skills Australia collected in 2020 and released in 2021.')
             st.write('The data here is an aggregate of of all the SA4 areas in Queensland except for those that are apart of Greater Brisbane.')
 
+#Function for largest employing occupations page
 @st.cache_data
 def largestoccupations_func():
     st.markdown('# Largest Employing Occupations')
@@ -749,8 +795,9 @@ def largestoccupations_func():
         with st.expander("More Information"):
             st.write('Census data based on usual place of residence.')
 
+#Function for employment by occupation
 def employingoccupations_func():
-    st.markdown('# Current Employing Occupations')
+    st.markdown('# Employment by Occupations')
     with st.container():
         st.write('### Toowoomba SA4')
         st.write('Data from: ', dateStringOE)
@@ -802,6 +849,7 @@ def employingoccupations_func():
             st.write('Pie chart figure is based on distribution of \'Employment by Occupation - Total.\'')
             st.write('Figures are based on four-quarter averages.')
 
+#Function for further links page
 def furtherlinks_func():
     st.write('# Further Links')
     with st.container():
@@ -848,9 +896,11 @@ def furtherlinks_func():
             st.write('6. Crime and justice: QGSO provides data on crime and justice in Queensland, including crime rates, types of offences, and the criminal justice system.')
             st.write('7. Transport and infrastructure: QGSO provides data on transport and infrastructure in Queensland, including information on roads, public transport, and the use of technology.')
 
+#Navigation menu
 st.sidebar.title('Navigation')
-options = st.sidebar.radio('Pages', options = ['Maps', 'Snapshot Data', 'Time Series Data', 'Labour Force Data', 'Employment by Industry', 'Employment Projections', 'Largest Employing Occupations', 'Current Employing Occupations', 'Further Links'])
+options = st.sidebar.radio('Pages', options = ['Maps', 'Snapshot Data', 'Time Series Data', 'Labour Force Data', 'Employment by Industry', 'Employment Projections', 'Largest Employing Occupations', 'Employment by Occupation', 'Further Links'])
 
+#Options to control pages
 if options == 'Snapshot Data':
     snapshot_func()
 elif options == 'Maps':
@@ -865,7 +915,7 @@ elif options == 'Employment Projections':
     employmentprojections_func()
 elif options == 'Largest Employing Occupations':
     largestoccupations_func()
-elif options == 'Current Employing Occupations':
+elif options == 'Employment by Occupation':
     employingoccupations_func()
 elif options == 'Further Links':
     furtherlinks_func()
