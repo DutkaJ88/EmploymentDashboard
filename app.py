@@ -11,6 +11,9 @@ from streamlit_folium import st_folium
 # Sets the default page layout to wide to use
 st.set_page_config(layout="wide")
 
+#with open("Downloads/style.css") as source_des:
+#    st.markdown(f"<style>{source_des.read()}</style>", unsafe_allow_html=True)
+
 #hide hamburger menu so that users can't rerun the application themselves
 hide_menu_style = """
         <style>
@@ -389,9 +392,6 @@ toedf = make_toedf(regionoedf)
 #String variable for adding a percentage sign
 strPercent = '%'
 
-#Title for dashboard
-st.title('Employment Dashboard')
-
 #Function for map page
 def map_func():
     st.markdown('# Map Information')
@@ -550,22 +550,22 @@ def snapshot_func():
             st.write('### Toowoomba SA4')
             st.write('Data from: ', dateString)
             st.metric(label='Youth Unemployment (15-24yrs):', value=str(toowoombasnapshotdf.iloc[0][6])+strPercent)
-            st.metric(label='Working Age Population (15-64yrs): ', value=str(toowoombasnapshotdf.iloc[0][1]))
-            st.metric(label='Employed Population (15+ yrs): ', value=str(toowoombasnapshotdf.iloc[0][2]))
+            st.metric(label='Working Age Population (15-64yrs): ', value=format(toowoombasnapshotdf.iloc[0][1], ',d'))
+            st.metric(label='Employed Population (15+ yrs): ', value=format(toowoombasnapshotdf.iloc[0][2], ',d'))
 
         with col2:
             st.write('### Darling Downs - Maranoa SA4')
             st.write('Data from: ', dateString)
             st.metric(label='Youth Unemployment (15-24yrs):', value=str(maranoasnapshotdf.iloc[0][6])+strPercent)
-            st.metric(label='Working Age Population (15-64yrs): ', value=str(maranoasnapshotdf.iloc[0][1]))
-            st.metric(label='Employed Population (15+ yrs): ', value=str(maranoasnapshotdf.iloc[0][2]))
+            st.metric(label='Working Age Population (15-64yrs): ', value=format(maranoasnapshotdf.iloc[0][1], ',d'))
+            st.metric(label='Employed Population (15+ yrs): ', value=format(maranoasnapshotdf.iloc[0][2], ',d'))
 
         with col3:
             st.write('### Queensland SA4')
             st.write('Data from: ', dateString)
             st.metric(label='Youth Unemployment (15-24yrs):', value=str(qldsnapshotdf.iloc[0][6])+strPercent)
-            st.metric(label='Working Age Population (15-64yrs): ', value=str(qldsnapshotdf.iloc[0][1]))
-            st.metric(label='Employed Population (15+ yrs): ', value=str(qldsnapshotdf.iloc[0][2]))
+            st.metric(label='Working Age Population (15-64yrs): ', value=format(qldsnapshotdf.iloc[0][1], ',d'))
+            st.metric(label='Employed Population (15+ yrs): ', value=format(qldsnapshotdf.iloc[0][2], ',d'))
             
         with st.expander("More Information"):
             st.write('The youth unemployment rate is a measure of the percentage of young people (individuals between the ages of 15 and 24) who are unemployed but actively seeking employment.')
@@ -645,28 +645,28 @@ def labourforce_func():
             st.write('### Toowoomba SA4')
             st.write('Data from: ', dateStringLF)
             tlftotal = tlfdf.iloc[0][2] + tlfdf.iloc[1][2] + tlfdf.iloc[2][2] + tlfdf.iloc[3][2]
-            st.metric(label='Employed Full-time Persons', value=str(tlfdf.iloc[0][2])+', '+str(round((tlfdf.iloc[0][2]/tlftotal*100), 1))+strPercent)
-            st.metric(label='Employed Part-time Persons', value=str(tlfdf.iloc[1][2])+', '+str(round((tlfdf.iloc[1][2]/tlftotal*100), 1))+strPercent)
-            st.metric(label='Unemployed Total', value=str(tlfdf.iloc[2][2])+', '+str(round((tlfdf.iloc[2][2]/tlftotal*100), 1))+strPercent)
-            st.metric(label='Not in the Labour Force', value=str(tlfdf.iloc[3][2])+', '+str(round((tlfdf.iloc[3][2]/tlftotal*100), 1))+strPercent)
+            st.metric(label='Employed Full-time Persons', value=format(tlfdf.iloc[0][2], ',d')+' - '+str(round((tlfdf.iloc[0][2]/tlftotal*100), 1))+strPercent)
+            st.metric(label='Employed Part-time Persons', value=format(tlfdf.iloc[1][2], ',d')+' - '+str(round((tlfdf.iloc[1][2]/tlftotal*100), 1))+strPercent)
+            st.metric(label='Unemployed Total', value=format(tlfdf.iloc[2][2], ',d')+' - '+str(round((tlfdf.iloc[2][2]/tlftotal*100), 1))+strPercent)
+            st.metric(label='Not in the Labour Force', value=format(tlfdf.iloc[3][2], ',d')+' - '+str(round((tlfdf.iloc[3][2]/tlftotal*100), 1))+strPercent)
 
         with col2:
             st.write('### Darling Downs - Maranoa SA4')
             st.write('Data from: ', dateStringLF)
             mlftotal = mlfdf.iloc[0][2] + mlfdf.iloc[1][2] + mlfdf.iloc[2][2] + mlfdf.iloc[3][2]
-            st.metric(label='Employed Full-time Persons', value=str(mlfdf.iloc[0][2])+', '+str(round((mlfdf.iloc[0][2]/mlftotal*100), 1))+strPercent)
-            st.metric(label='Employed Part-time Persons', value=str(mlfdf.iloc[1][2])+', '+str(round((mlfdf.iloc[1][2]/mlftotal*100), 1))+strPercent)
-            st.metric(label='Unemployed Total', value=str(mlfdf.iloc[2][2])+', '+str(round((mlfdf.iloc[2][2]/mlftotal*100), 1))+strPercent)
-            st.metric(label='Not in the Labour Force', value=str(mlfdf.iloc[3][2])+', '+str(round((mlfdf.iloc[3][2]/mlftotal*100), 1))+strPercent)
+            st.metric(label='Employed Full-time Persons', value=format(mlfdf.iloc[0][2], ',d')+' - '+str(round((mlfdf.iloc[0][2]/mlftotal*100), 1))+strPercent)
+            st.metric(label='Employed Part-time Persons', value=format(mlfdf.iloc[1][2], ',d')+' - '+str(round((mlfdf.iloc[1][2]/mlftotal*100), 1))+strPercent)
+            st.metric(label='Unemployed Total', value=format(mlfdf.iloc[2][2], ',d')+' - '+str(round((mlfdf.iloc[2][2]/mlftotal*100), 1))+strPercent)
+            st.metric(label='Not in the Labour Force', value=format(mlfdf.iloc[3][2], ',d')+' - '+str(round((mlfdf.iloc[3][2]/mlftotal*100), 1))+strPercent)
 
         with col3:
             st.write('### Queensland SA4')
             st.write('Data from: ', dateStringLF)
             qlftotal = qldlfdf.iloc[0][2] + qldlfdf.iloc[1][2] + qldlfdf.iloc[2][2] + qldlfdf.iloc[3][2]
-            st.metric(label='Employed Full-time Persons', value=str(qldlfdf.iloc[0][2])+', '+str(round((qldlfdf.iloc[0][2]/qlftotal*100), 1))+strPercent)
-            st.metric(label='Employed Part-time Persons', value=str(qldlfdf.iloc[1][2])+', '+str(round((qldlfdf.iloc[1][2]/qlftotal*100), 1))+strPercent)
-            st.metric(label='Unemployed Total', value=str(qldlfdf.iloc[2][2])+', '+str(round((qldlfdf.iloc[2][2]/qlftotal*100), 1))+strPercent)
-            st.metric(label='Not in the Labour Force', value=str(qldlfdf.iloc[3][2])+', '+str(round((qldlfdf.iloc[3][2]/qlftotal*100), 1))+strPercent)
+            st.metric(label='Employed Full-time Persons', value=format(qldlfdf.iloc[0][2], ',d')+' - '+str(round((qldlfdf.iloc[0][2]/qlftotal*100), 1))+strPercent)
+            st.metric(label='Employed Part-time Persons', value=format(qldlfdf.iloc[1][2], ',d')+' - '+str(round((qldlfdf.iloc[1][2]/qlftotal*100), 1))+strPercent)
+            st.metric(label='Unemployed Total', value=format(qldlfdf.iloc[2][2], ',d')+' - '+str(round((qldlfdf.iloc[2][2]/qlftotal*100), 1))+strPercent)
+            st.metric(label='Not in the Labour Force', value=format(qldlfdf.iloc[3][2], ',d')+' - '+str(round((qldlfdf.iloc[3][2]/qlftotal*100), 1))+strPercent)
             
         with st.expander("More Information"):
             st.write('+ Employed full-time: Individuals who work 35 hours or more per week in their main job.')
@@ -682,7 +682,7 @@ def labourforce_func():
             st.write('Data from: ', dateStringAge)
             figat = px.bar(tagedf, x=tagedf.columns[2], y=tagedf.columns[1], text=tagedf.columns[3])
             st.plotly_chart(figat)
-            st.metric(label='Combined Age Group total of (55 to 64) and (over 65) years old:', value=str(tagedf.iloc[0][2]+tagedf.iloc[1][2])+', '+str(tagedf.iloc[0][3]+tagedf.iloc[1][3])+strPercent)
+            st.metric(label='Combined Age Group total of (55 to 64) and (over 65) years old:', value=format(tagedf.iloc[0][2]+tagedf.iloc[1][2], ',d')+' - '+str(tagedf.iloc[0][3]+tagedf.iloc[1][3])+strPercent)
             with st.expander("More Information"):
                 st.write('Figures based on an average of the last 12 months, with the percentage representing the portion of the categories avaliable.')
     with st.container():
@@ -690,7 +690,7 @@ def labourforce_func():
             st.write('Data from: ', dateStringAge)
             figam = px.bar(magedf, x=magedf.columns[2], y=magedf.columns[1], text=magedf.columns[3])
             st.plotly_chart(figam)
-            st.metric(label='Combined Age Group total of (55 to 64) and (over 65) years old:', value=str(magedf.iloc[0][2]+magedf.iloc[1][2])+', '+str(magedf.iloc[0][3]+magedf.iloc[1][3])+strPercent)
+            st.metric(label='Combined Age Group total of (55 to 64) and (over 65) years old:', value=format(magedf.iloc[0][2]+magedf.iloc[1][2], ',d')+' - '+str(magedf.iloc[0][3]+magedf.iloc[1][3])+strPercent)
             with st.expander("More Information"):
                 st.write('Figures based on an average of the last 12 months, with the percentage representing the portion of the categories avaliable.')
     with st.container():
@@ -698,7 +698,7 @@ def labourforce_func():
             st.write('Data from: ', dateStringAge)
             figaq = px.bar(qagedf, x=qagedf.columns[2], y=qagedf.columns[1], text=qagedf.columns[3])
             st.plotly_chart(figaq)
-            st.metric(label='Combined Age Group total of (55 to 64) and (over 65) years old:', value=str(qagedf.iloc[0][2]+qagedf.iloc[1][2])+', '+str(qagedf.iloc[0][3]+qagedf.iloc[1][3])+strPercent)
+            st.metric(label='Combined Age Group total of (55 to 64) and (over 65) years old:', value=format(qagedf.iloc[0][2]+qagedf.iloc[1][2], ',d')+' - '+str(qagedf.iloc[0][3]+qagedf.iloc[1][3])+strPercent)
             with st.expander("More Information"):
                 st.write('Figures based on an average of the last 12 months, with the percentage representing the portion of the categories avaliable.')
 
@@ -709,9 +709,10 @@ def employmentindustry_func():
         st.write('### Toowoomba SA4')
         st.write('Data from: ', dateStringEI)
         x_axis_value = st.selectbox('Select Toowoomba Industry Employment Figure', options=teidf.columns[2:7])
-        figeit = px.bar(teidf, x=x_axis_value, y=teidf.columns[1])
+        figeit = px.bar(teidf, x=x_axis_value, y=teidf.columns[1], height=700, width=800, color='Industry').update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)), showlegend=False)
         st.plotly_chart(figeit)
-        figeipiet = px.pie(teidf, values=teidf.columns[7], names=teidf.columns[1], title=teidf.columns[7]).update_layout(legend_itemclick=False)
+        st.markdown("""---""")
+        figeipiet = px.pie(teidf, values=teidf.columns[7], names=teidf.columns[1], title=teidf.columns[7], color='Industry', height=600, width=800).update_layout(legend_itemclick=False, legend = dict(font = dict(size=14)))
         st.plotly_chart(figeipiet)
         with st.expander("More Information"):
             st.write('+ Employed full-time: Individuals who work 35 hours or more per week in their main job.')
@@ -724,9 +725,10 @@ def employmentindustry_func():
         st.write('### Darling downs - Maranoa SA4')
         st.write('Data from: ', dateStringEI)
         x_axis_value = st.selectbox('Select Darling Down - Maranoa Industry Employment Figure', options=meidf.columns[2:7])
-        figeim = px.bar(meidf, x=x_axis_value, y=meidf.columns[1])
+        figeim = px.bar(meidf, x=x_axis_value, y=meidf.columns[1], height=700, width=800, color='Industry').update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)), showlegend=False)
         st.plotly_chart(figeim)
-        figeipiem = px.pie(meidf, values=meidf.columns[7], names=meidf.columns[1], title=meidf.columns[7]).update_layout(legend_itemclick=False)
+        st.markdown("""---""")
+        figeipiem = px.pie(meidf, values=meidf.columns[7], names=meidf.columns[1], title=meidf.columns[7], color='Industry', height=600, width=800).update_layout(legend_itemclick=False, legend = dict(font = dict(size=14)))
         st.plotly_chart(figeipiem)
         with st.expander("More Information"):
             st.write('+ Employed full-time: Individuals who work 35 hours or more per week in their main job.')
@@ -739,9 +741,10 @@ def employmentindustry_func():
         st.write('### Queensland SA4')
         st.write('Data from: ', dateStringEI)
         x_axis_value = st.selectbox('Select Queensland Industry Employment Figure', options=qeidf.columns[2:7])
-        figeiq = px.bar(qeidf, x=x_axis_value, y=qeidf.columns[1])
+        figeiq = px.bar(qeidf, x=x_axis_value, y=qeidf.columns[1], height=700, width=800, color='Industry').update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)), showlegend=False)
         st.plotly_chart(figeiq)
-        figeipieq = px.pie(qeidf, values=qeidf.columns[7], names=qeidf.columns[1], title=qeidf.columns[7]).update_layout(legend_itemclick=False)
+        st.markdown("""---""")
+        figeipieq = px.pie(qeidf, values=qeidf.columns[7], names=qeidf.columns[1], title=qeidf.columns[7], color='Industry', height=600, width=800).update_layout(legend_itemclick=False, legend = dict(font = dict(size=14)))
         st.plotly_chart(figeipieq)
         with st.expander("More Information"):
             st.write('+ Employed full-time: Individuals who work 35 hours or more per week in their main job.')
@@ -753,14 +756,15 @@ def employmentindustry_func():
 #Function for employment projections page
 @st.cache_data
 def employmentprojections_func():
-    st.markdown('# Employment Projections for Next 5 Years')
+    st.markdown('# Employment Projections for the Next 5 Years')
     st.markdown('### Toowoomba and Darling Downs - Maranoa')
     st.write('Data from: ', dateStringProjections)
     mask = mtepdf[mtepdf['Industry'] != 'Total (industry)']
-    figep = px.bar(mask, x=mask.columns[2], y=mask.columns[1])
+    figep = px.bar(mask, x=mask.columns[2], y=mask.columns[1], height=700, width=800).update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)))
     st.plotly_chart(figep)
-    st.metric(label='Expected total job industry growth is:', value=str(int(mtepdf.iloc[19][2]*1000)))
-    figep2 = px.bar(mtepdf, x=mtepdf.columns[3], y=mtepdf.columns[1])
+    st.metric(label='Expected total job industry growth is:', value=format(int(mtepdf.iloc[19][2]*1000), ',d'))
+    st.markdown("""---""")
+    figep2 = px.bar(mtepdf, x=mtepdf.columns[3], y=mtepdf.columns[1], height=700, width=800).update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)))
     st.plotly_chart(figep2)
     with st.expander("More Information"):
             st.write('This data comes from Jobs and Skills Australia collected in 2020 and released in 2021.')
@@ -774,7 +778,7 @@ def largestoccupations_func():
     with st.container():
         st.markdown('### Toowoomba SA4')
         st.write('Data from: ', dateStringLO)
-        figot = px.bar(todf, x=todf.columns[2], y=todf.columns[1])
+        figot = px.bar(todf, x=todf.columns[2], y=todf.columns[1], height=700, width=800).update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)))
         st.plotly_chart(figot)
         with st.expander("More Information"):
             st.write('Census data based on usual place of residence.')
@@ -782,7 +786,7 @@ def largestoccupations_func():
     with st.container():
         st.markdown('### Darling Downs - Maranoa SA4')
         st.write('Data from: ', dateStringLO)
-        figom = px.bar(modf, x=modf.columns[2], y=modf.columns[1])
+        figom = px.bar(modf, x=modf.columns[2], y=modf.columns[1], height=700, width=800).update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)))
         st.plotly_chart(figom)
         with st.expander("More Information"):
             st.write('Census data based on usual place of residence.')
@@ -790,7 +794,7 @@ def largestoccupations_func():
     with st.container():
         st.markdown('### Queensland SA4')
         st.write('Data from: ', dateStringLO)
-        figoq = px.bar(qodf, x=qodf.columns[2], y=qodf.columns[1])
+        figoq = px.bar(qodf, x=qodf.columns[2], y=qodf.columns[1], height=700, width=800).update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)))
         st.plotly_chart(figoq)
         with st.expander("More Information"):
             st.write('Census data based on usual place of residence.')
@@ -802,9 +806,10 @@ def employingoccupations_func():
         st.write('### Toowoomba SA4')
         st.write('Data from: ', dateStringOE)
         x_axis_value = st.selectbox('Select Toowoomba Occupation Employment Figure', options=toedf.columns[2:7])
-        figoet = px.bar(toedf, x=x_axis_value, y=toedf.columns[1])
+        figoet = px.bar(toedf, x=x_axis_value, y=toedf.columns[1], height=500, width=800, color='Occupation').update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)), showlegend=False)
         st.plotly_chart(figoet)
-        figoepiet = px.pie(toedf, values=toedf.columns[7], names=toedf.columns[1], title=toedf.columns[7]).update_layout(legend_itemclick=False)
+        st.markdown("""---""")
+        figoepiet = px.pie(toedf, values=toedf.columns[7], names=toedf.columns[1], title=toedf.columns[7], color='Occupation', height=400, width=800).update_layout(legend_itemclick=False, legend = dict(font = dict(size=14)))
         st.plotly_chart(figoepiet)
         with st.expander("More Information"):
             st.write('+ Employed total: All employed individuals.')
@@ -819,9 +824,10 @@ def employingoccupations_func():
         st.write('### Darling downs - Maranoa SA4')
         st.write('Data from: ', dateStringOE)
         x_axis_value = st.selectbox('Select Darling Down - Maranoa Occupation Employment Figure', options=moedf.columns[2:7])
-        figoem = px.bar(moedf, x=x_axis_value, y=moedf.columns[1])
+        figoem = px.bar(moedf, x=x_axis_value, y=moedf.columns[1], height=500, width=800, color='Occupation').update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)), showlegend=False)
         st.plotly_chart(figoem)
-        figoepiem = px.pie(moedf, values=moedf.columns[7], names=moedf.columns[1], title=moedf.columns[7]).update_layout(legend_itemclick=False)
+        st.markdown("""---""")
+        figoepiem = px.pie(moedf, values=moedf.columns[7], names=moedf.columns[1], title=moedf.columns[7], color='Occupation', height=400, width=800).update_layout(legend_itemclick=False, legend = dict(font = dict(size=14)))
         st.plotly_chart(figoepiem)
         with st.expander("More Information"):
             st.write('+ Employed total: All employed individuals.')
@@ -836,9 +842,10 @@ def employingoccupations_func():
         st.write('### Queensland SA4')
         st.write('Data from: ', dateStringOE)
         x_axis_value = st.selectbox('Select Queensland Occupation Employment Figure', options=qoedf.columns[2:7])
-        figoeq = px.bar(qoedf, x=x_axis_value, y=qoedf.columns[1])
+        figoeq = px.bar(qoedf, x=x_axis_value, y=qoedf.columns[1], height=500, width=800, color='Occupation').update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)), showlegend=False)
         st.plotly_chart(figoeq)
-        figoepieq = px.pie(qoedf, values=qoedf.columns[7], names=qoedf.columns[1], title=qoedf.columns[7]).update_layout(legend_itemclick=False)
+        st.markdown("""---""")
+        figoepieq = px.pie(qoedf, values=qoedf.columns[7], names=qoedf.columns[1], title=qoedf.columns[7], color='Occupation', height=400, width=800).update_layout(legend_itemclick=False, legend = dict(font = dict(size=14)))
         st.plotly_chart(figoepieq)
         with st.expander("More Information"):
             st.write('+ Employed total: All employed individuals.')
@@ -869,12 +876,12 @@ def furtherlinks_func():
             st.write('8. Environment: ABS provides environmental data for different regions in Australia. This includes data on the quality of air, water, and soil, as well as information on biodiversity and climate change.')
 
     with st.container():
-        st.write('## Informed Decisions')
-        st.write('Informed Decisions is a data analytics and visualization platform that provides a wide range of data that can be searched by region.')
+        st.write('## Profile.id (Informed Decisions)')
+        st.write('Profile.id by Informed Decisions is a data analytics and visualization platform that provides a wide range of data that can be searched by region.')
         st.write('[More Information on Toowoomba](https://profile.id.com.au/toowoomba)')
         st.write('[More Information on Darling Downs - Maranoa](https://profile.id.com.au/rda-dd-sw)')
         st.write('[More Information on Queensland](https://profile.id.com.au/australia/about?WebID=120)')
-        with st.expander('Information from Informed Decisions'):
+        with st.expander('Information from Profile.id'):
             st.write('1. Demographics: ID Community provides demographic data for different regions in Australia. This includes data on population size, age distribution, gender, cultural diversity, and household composition.')
             st.write('2. Social: ID Community provides social data for different regions in Australia. This includes data on education, employment, income, housing, and health.')
             st.write('3. Economic: ID Community provides economic data for different regions in Australia. This includes data on the local economy, employment, industry sectors, business activity, and innovation.')
@@ -884,7 +891,7 @@ def furtherlinks_func():
             st.write('7. Education: ID Community provides education data for different regions in Australia. This includes data on student enrolments, staff numbers, and academic achievement.')
 
     with st.container():
-        st.write('## Queensland Government Statistician\'s Office')
+        st.write('## Queensland Government Statistician\'s Office (QGSO)')
         st.write('The Queensland Government Statistician\'s Office (QGSO) is the official statistics agency of the Queensland Government in Australia. The agency provides a wide range of statistical data and analysis across various topics.')
         st.write('Unfortunately QGSO does not provide data by region, regional information can be found on the site when looking at a topic of interest [QSGO Website](https://www.qgso.qld.gov.au/)')
         with st.expander('Information from the Queensland Government Statistician\'s Office'):
