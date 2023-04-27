@@ -11,8 +11,9 @@ from streamlit_folium import st_folium
 # Sets the default page layout to wide to use
 st.set_page_config(layout="wide")
 
-#with open("Downloads/style.css") as source_des:
-#    st.markdown(f"<style>{source_des.read()}</style>", unsafe_allow_html=True)
+
+with open("style.css") as style_doc:
+    st.markdown(f"<style>{style_doc.read()}</style>", unsafe_allow_html=True)
 
 #hide hamburger menu so that users can't rerun the application themselves
 hide_menu_style = """
@@ -431,32 +432,35 @@ def snapshot_func():
         with col1:
             st.write('### Toowoomba SA4')
             st.write('Data from: ', dateString)
-            st.metric(label='Unemployment Rate', value=str(toowoombasnapshotdf.iloc[0][5])+strPercent)
-            st.write('Last 5 years')
-            st.metric(label='Minimum Unemployment Rate:', value=str(ttUEmindf.iloc[-1][3])+strPercent)
+            st.metric(label='Current Unemployment Rate', value=str(toowoombasnapshotdf.iloc[0][5])+strPercent)
+            st.write(' ')
+            st.write('### Previous 5 years')
             st.write('On ',ttUEmindf.iloc[-1,1].strftime('%B-%Y'))
-            st.metric(label='Maximum Unemployment Rate:', value=str(ttUEmaxdf.iloc[-1][3])+strPercent)
+            st.metric(label='Lowest Unemployment Rate:', value=str(ttUEmindf.iloc[-1][3])+strPercent)
             st.write('On ',ttUEmaxdf.iloc[-1,1].strftime('%B-%Y'))
+            st.metric(label='Highest Unemployment Rate:', value=str(ttUEmaxdf.iloc[-1][3])+strPercent)
 
         with col2:
             st.write('### Darling Downs - Maranoa SA4')
             st.write('Data from: ', dateString)
-            st.metric(label='Unemployment Rate', value=str(maranoasnapshotdf.iloc[0][5])+strPercent)
-            st.write('Last 5 years')
-            st.metric(label='Minimum Unemployment Rate:', value=str(mtUEmindf.iloc[-1][3])+strPercent)
+            st.metric(label='Current Unemployment Rate', value=str(maranoasnapshotdf.iloc[0][5])+strPercent)
+            st.write(' ')
+            st.write('### Previous 5 years')
             st.write('On ',mtUEmindf.iloc[-1,1].strftime('%B-%Y'))
-            st.metric(label='Maximum Unemployment Rate:', value=str(mtUEmaxdf.iloc[-1][3])+strPercent)
+            st.metric(label='Lowest Unemployment Rate:', value=str(mtUEmindf.iloc[-1][3])+strPercent)
             st.write('On ',mtUEmaxdf.iloc[-1,1].strftime('%B-%Y'))
+            st.metric(label='Highest Unemployment Rate:', value=str(mtUEmaxdf.iloc[-1][3])+strPercent)
 
         with col3:
             st.write('### Queensland SA4')
             st.write('Data from: ', dateString)
-            st.metric(label='Unemployment Rate', value=str(qldsnapshotdf.iloc[0][5])+strPercent)
-            st.write('Last 5 years')
-            st.metric(label='Minimum Unemployment Rate:', value=str(qtUEmindf.iloc[-1][3])+strPercent)
+            st.metric(label='Current Unemployment Rate', value=str(qldsnapshotdf.iloc[0][5])+strPercent)
+            st.write(' ')
+            st.write('### Previous 5 years')
             st.write('On ',qtUEmindf.iloc[-1,1].strftime('%B-%Y'))
-            st.metric(label='Maximum Unemployment Rate:', value=str(qtUEmaxdf.iloc[-1][3])+strPercent)
+            st.metric(label='Lowest Unemployment Rate:', value=str(qtUEmindf.iloc[-1][3])+strPercent)
             st.write('On ',qtUEmaxdf.iloc[-1,1].strftime('%B-%Y'))
+            st.metric(label='Highest Unemployment Rate:', value=str(qtUEmaxdf.iloc[-1][3])+strPercent)
             
         with st.expander("More Information"):
             st.write('The unemployment rate is a measure of the percentage of the labor force that is currently unemployed but actively seeking employment.')
@@ -470,33 +474,35 @@ def snapshot_func():
         with col1:
             st.write('### Toowoomba SA4')
             st.write('Data from: ', dateString)
-            st.metric(label='Employment Rate', value=str(toowoombasnapshotdf.iloc[0][3])+strPercent)
-            st.write('Last 5 years')
-            st.metric(label='Minimum Employment Rate:', value=str(ttEmindf.iloc[-1][2])+strPercent)
+            st.metric(label='Current Employment Rate', value=str(toowoombasnapshotdf.iloc[0][3])+strPercent)
+            st.write('### Previous 5 years')
+            st.write(' ')
             st.write('On ',ttEmindf.iloc[-1,1].strftime('%B-%Y'))
-            st.metric(label='Maximum Employment Rate:', value=str(ttEmaxdf.iloc[-1][2])+strPercent)
+            st.metric(label='Lowest Employment Rate:', value=str(ttEmindf.iloc[-1][2])+strPercent)
             st.write('On ',ttEmaxdf.iloc[-1,1].strftime('%B-%Y'))
+            st.metric(label='Highest Employment Rate:', value=str(ttEmaxdf.iloc[-1][2])+strPercent)
 
         with col2:
             st.write('### Darling Downs - Maranoa SA4')
             st.write('Data from: ', dateString)
-            st.metric(label='Employment Rate', value=str(maranoasnapshotdf.iloc[0][3])+strPercent)
-            st.write('Last 5 years')
-            st.metric(label='Minimum Employment Rate:', value=str(mtEmindf.iloc[-1][2])+strPercent)
+            st.metric(label='Current Employment Rate', value=str(maranoasnapshotdf.iloc[0][3])+strPercent)
+            st.write('### Previous 5 years')
+            st.write(' ')
             st.write('On ',mtEmindf.iloc[-1,1].strftime('%B-%Y'))
-            st.metric(label='Maximum Employment Rate:', value=str(mtEmaxdf.iloc[-1][2])+strPercent)
+            st.metric(label='Lowest Employment Rate:', value=str(mtEmindf.iloc[-1][2])+strPercent)
             st.write('On ',mtEmaxdf.iloc[-1,1].strftime('%B-%Y'))
-
+            st.metric(label='Highest Employment Rate:', value=str(mtEmaxdf.iloc[-1][2])+strPercent)
 
         with col3:
             st.write('### Queensland SA4')
             st.write('Data from: ', dateString)
-            st.metric(label='Employment Rate', value=str(qldsnapshotdf.iloc[0][3])+strPercent)
-            st.write('Last 5 years')
-            st.metric(label='Minimum Employment Rate:', value=str(qtEmindf.iloc[-1][2])+strPercent)
+            st.metric(label='Current Employment Rate', value=str(qldsnapshotdf.iloc[0][3])+strPercent)
+            st.write('### Previous 5 years')
+            st.write(' ')
             st.write('On ',qtEmindf.iloc[-1,1].strftime('%B-%Y'))
-            st.metric(label='Maximum Employment Rate:', value=str(qtEmaxdf.iloc[-1][2])+strPercent)
+            st.metric(label='Lowest Employment Rate:', value=str(qtEmindf.iloc[-1][2])+strPercent)
             st.write('On ',qtEmaxdf.iloc[-1,1].strftime('%B-%Y'))
+            st.metric(label='Highest Employment Rate:', value=str(qtEmaxdf.iloc[-1][2])+strPercent)
             
         with st.expander("More Information"):
             st.write('The employment rate is a measure of the percentage of the working-age population that is currently employed.')
@@ -510,32 +516,35 @@ def snapshot_func():
         with col1:
             st.write('### Toowoomba SA4')
             st.write('Data from: ', dateString)
-            st.metric(label='Participation Rate', value=str(toowoombasnapshotdf.iloc[0][4])+strPercent)
-            st.write('Last 5 years')
-            st.metric(label='Minimum Participation Rate:', value=str(ttPmindf.iloc[-1][4])+strPercent)
+            st.metric(label='Current Participation Rate', value=str(toowoombasnapshotdf.iloc[0][4])+strPercent)
+            st.write('### Previous 5 years')
+            st.write(' ')
             st.write('On ',ttPmindf.iloc[-1,1].strftime('%B-%Y'))
-            st.metric(label='Maximum Participation Rate:', value=str(ttPmaxdf.iloc[-1][4])+strPercent)
+            st.metric(label='Lowest Participation Rate:', value=str(ttPmindf.iloc[-1][4])+strPercent)
             st.write('On ',ttPmaxdf.iloc[-1,1].strftime('%B-%Y'))
+            st.metric(label='Highest Participation Rate:', value=str(ttPmaxdf.iloc[-1][4])+strPercent)
 
         with col2:
             st.write('### Darling Downs - Maranoa SA4')
             st.write('Data from: ', dateString)
-            st.metric(label='Participation Rate', value=str(maranoasnapshotdf.iloc[0][4])+strPercent)
-            st.write('Last 5 years')
-            st.metric(label='Minimum Participation Rate:', value=str(mtPmindf.iloc[-1][4])+strPercent)
+            st.metric(label='Current Participation Rate', value=str(maranoasnapshotdf.iloc[0][4])+strPercent)
+            st.write('### Previous 5 years')
+            st.write(' ')
             st.write('On ',mtPmindf.iloc[-1,1].strftime('%B-%Y'))
-            st.metric(label='Maximum Participation Rate:', value=str(mtPmaxdf.iloc[-1][4])+strPercent)
+            st.metric(label='Lowest Participation Rate:', value=str(mtPmindf.iloc[-1][4])+strPercent)
             st.write('On ',mtPmaxdf.iloc[-1,1].strftime('%B-%Y'))
+            st.metric(label='Highest Participation Rate:', value=str(mtPmaxdf.iloc[-1][4])+strPercent)
 
         with col3:
             st.write('### Queensland SA4')
             st.write('Data from: ', dateString)
-            st.metric(label='Participation Rate', value=str(qldsnapshotdf.iloc[0][4])+strPercent)
-            st.write('Last 5 years')
-            st.metric(label='Minimum Participation Rate:', value=str(qtEmindf.iloc[-1][4])+strPercent)
+            st.metric(label='Current Participation Rate', value=str(qldsnapshotdf.iloc[0][4])+strPercent)
+            st.write('### Previous 5 years')
+            st.write(' ')
             st.write('On ',qtEmindf.iloc[-1,1].strftime('%B-%Y'))
-            st.metric(label='Maximum Participation Rate:', value=str(qtEmaxdf.iloc[-1][4])+strPercent)
+            st.metric(label='Lowest Participation Rate:', value=str(qtEmindf.iloc[-1][4])+strPercent)
             st.write('On ',qtEmaxdf.iloc[-1,1].strftime('%B-%Y'))
+            st.metric(label='Highest Participation Rate:', value=str(qtEmaxdf.iloc[-1][4])+strPercent)
             
         with st.expander("More Information"):
             st.write('The labor force participation rate is a measure of the percentage of the working-age population that is either employed or actively seeking employment.')
