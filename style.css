@@ -13,3 +13,9 @@ h2 {
 h3 {
     color: #BED600;
 }
+a:link {
+    color: white;
+}
+a:visited {
+    color: black;
+}
