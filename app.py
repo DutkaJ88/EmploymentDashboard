@@ -24,7 +24,7 @@ hide_menu_style = """
 st.markdown(hide_menu_style, unsafe_allow_html=True)
 
 # Funtion to create a list of all the excel files locations on labour market insights webpage
-@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400, max_entries=1)
 def make_list():
     # Use beautifulsoup to get all links from the data download pages that are xlsx files and put them in a list
     url = "https://labourmarketinsights.gov.au/regions/data-downloads/all-regions-abs-sa4-downloads/"
@@ -42,7 +42,7 @@ def make_list():
     # print(fullxlsx)
 
 # Create a date from a file source, uses the date on the end of the excel document, will break if they change their naming conventions
-@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400, max_entries=1)
 def make_date(anylink):
     dateString = anylink.partition('_')[2]
     dateString = dateString.partition('.')[0]
@@ -50,7 +50,7 @@ def make_date(anylink):
     return dateString
 
 # Create the dataframe for the snapshot of Queensland
-@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400, max_entries=1)
 def make_qldsnapshotdf(link):
     df = pd.read_excel(link, sheet_name=2)
     df.drop(df[df['Region'] != "Queensland"].index, inplace = True)
@@ -58,13 +58,13 @@ def make_qldsnapshotdf(link):
     return df
 
 # Create a dataframe for the snapshot of regional areas
-@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400, max_entries=1)
 def make_regionsnapshotdf(link):
     df = pd.read_excel(link, sheet_name=1)
     return df
 
 # Create a dataframe for Maranoa snapshot
-@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400, max_entries=1)
 def make_Msnap(dataFrame):
     df = dataFrame.loc[dataFrame['Region'] == "Darling Downs - Maranoa"]
     df = df.drop('State/Territory', axis=1)
@@ -72,7 +72,7 @@ def make_Msnap(dataFrame):
     return df
 
 #Create a dataframe for Toowoomba snapshot
-@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400, max_entries=1)
 def make_Tsnap(dataFrame):
     df = dataFrame.loc[dataFrame['Region'] == "Toowoomba"]
     df = df.drop('State/Territory', axis=1)
@@ -80,7 +80,7 @@ def make_Tsnap(dataFrame):
     return df
 
 #Create a dataframe for the time series data of Queensland
-@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400, max_entries=1)
 def make_qtimedf(link):
     df = pd.read_excel(link, sheet_name=2)
     df = df.sort_values(by=['Date'])
@@ -90,13 +90,13 @@ def make_qtimedf(link):
     return df
 
 #Create a dataframe for the time series data of the regional areas
-@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400, max_entries=1)
 def make_regiontdf(link):
     df = pd.read_excel(timelink, sheet_name=1)
     return df
 
 #Create a dataframe of the timeseries data for Maranoa
-@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400, max_entries=1)
 def make_mtimedf(dataFrame):
     df = dataFrame.loc[dataFrame['Region'] == "Darling Downs - Maranoa"]
     df = df.sort_values(by=['Date'])
@@ -106,7 +106,7 @@ def make_mtimedf(dataFrame):
     return df
 
 #Create a dataframe of the timeseries data for Toowoomba
-@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400, max_entries=1)
 def make_ttimedf(dataFrame):
     df = dataFrame.loc[dataFrame['Region'] == "Toowoomba"]
     df = df.sort_values(by=['Date'])
@@ -116,7 +116,7 @@ def make_ttimedf(dataFrame):
     return df
 
 #Create a dataframe for the labour force data of Queensland
-@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400, max_entries=1)
 def make_qldlfdf():
     df = pd.read_excel(labourforcelink, sheet_name=2)
     df.drop(df[df['Region Name'] != "Queensland"].index, inplace = True)
@@ -124,13 +124,13 @@ def make_qldlfdf():
     return df
 
 #Create a dataframe for the labour force data of the regional areas
-@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400, max_entries=1)
 def make_regionlfdf():
     df = pd.read_excel(labourforcelink, sheet_name=1)
     return df
 
 #Create a dataframe for the labour force data of Maranoa
-@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400, max_entries=1)
 def make_mlfdf(dataFrame):
     df = dataFrame.loc[dataFrame['Region Name'] == "Darling Downs - Maranoa"]
     df = df.drop('State/Territory', axis=1)
@@ -138,7 +138,7 @@ def make_mlfdf(dataFrame):
     return df
 
 #Create a dataframe for the labour force data of Toowoomba
-@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400, max_entries=1)
 def make_tlfdf(dataFrame):
     df = dataFrame.loc[dataFrame['Region Name'] == "Toowoomba"]
     df = df.drop('State/Territory', axis=1)
@@ -146,7 +146,7 @@ def make_tlfdf(dataFrame):
     return df
 
 #Create a dataframe for the labour force age data of Queensland
-@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400, max_entries=1)
 def make_qldagedf():
     df = pd.read_excel(agelink, sheet_name=2)
     df.drop(df[df['Region Name'] != "Queensland"].index, inplace = True)
@@ -155,13 +155,13 @@ def make_qldagedf():
     return df
 
 #Create a dataframe for the labour force age data of the regional areas
-@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400, max_entries=1)
 def make_regionagedf():
     df = pd.read_excel(agelink, sheet_name=1)
     return df
 
 #Create a dataframe for the labour force age data of Maranoa
-@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400, max_entries=1)
 def make_magedf(dataFrame):
     df = dataFrame.loc[dataFrame['Region Name'] == "Darling Downs - Maranoa"]
     df = df.drop('State/Territory', axis=1)
@@ -170,7 +170,7 @@ def make_magedf(dataFrame):
     return df
 
 #Create a dataframe for the labour force age data of Toowoomba
-@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400, max_entries=1)
 def make_tagedf(dataFrame):
     df = dataFrame.loc[dataFrame['Region Name'] == "Toowoomba"]
     df = df.drop('State/Territory', axis=1)
@@ -179,7 +179,7 @@ def make_tagedf(dataFrame):
     return df
 
 #Create a dataframe for the employment by industry data of Queensland
-@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400, max_entries=1)
 def make_qeidf():
     df = pd.read_excel(employmentindustrylink, sheet_name=2)
     df.drop(df[df['Region Name'] != "Queensland"].index, inplace = True)
@@ -187,13 +187,13 @@ def make_qeidf():
     return df
 
 #Create a dataframe for the employment by industry data of the regional areas
-@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400, max_entries=1)
 def make_regioneidf():
     df = pd.read_excel(employmentindustrylink, sheet_name=1)
     return df
 
 #Create a dataframe for the employment by industry data of Maranoa
-@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400, max_entries=1)
 def make_meidf(dataFrame):
     df = dataFrame.loc[dataFrame['Region Name'] == "Darling Downs - Maranoa"]
     df = df.drop('State/Territory', axis=1)
@@ -201,7 +201,7 @@ def make_meidf(dataFrame):
     return df
 
 #Create a dataframe for the employment by industry data of Toowoomba
-@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400, max_entries=1)
 def make_teidf(dataFrame):
     df = dataFrame.loc[dataFrame['Region Name'] == "Toowoomba"]
     df = df.drop('State/Territory', axis=1)
@@ -209,7 +209,7 @@ def make_teidf(dataFrame):
     return df
 
 #Create a dataframe for the employment projections of the regional areas of which include Maranoa and Toowoomba
-@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400, max_entries=1)
 def make_mtepdf():
     df = pd.read_excel(employmentprojectionlink, sheet_name=1, skiprows=[0,1], header=0, names=['Region Name','Proxy Region (Greater City / Rest of State)','State/Territory','Industry','Projected Growth (\'000)','Projected Growth (%)'])
     df2 = df.loc[df['Region Name'] == "Darling Downs - Maranoa"]
@@ -219,7 +219,7 @@ def make_mtepdf():
     return df2
 
 #Create a dataframe for the largest employment occupations data of Queensland
-@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400, max_entries=1)
 def make_qodf():
     df = pd.read_excel(occupationlink, sheet_name=2)
     df.drop(df[df['Region Name'] != "Queensland"].index, inplace = True)
@@ -227,13 +227,13 @@ def make_qodf():
     return df
 
 #Create a dataframe for the largest employment occupations data of the regional areas
-@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400, max_entries=1)
 def make_regionodf():
     df = pd.read_excel(occupationlink, sheet_name=1)
     return df
 
 #Create a dataframe for the largest employment occupations data of Maranoa
-@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400, max_entries=1)
 def make_todf(dataFrame):
     df = dataFrame.loc[dataFrame['Region Name'] == "Toowoomba"]
     df = df.drop('State/Territory', axis=1)
@@ -241,7 +241,7 @@ def make_todf(dataFrame):
     return df
 
 #Create a dataframe for the largest employment occupations data of Toowoomba
-@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400, max_entries=1)
 def make_modf(dataFrame):
     df = dataFrame.loc[dataFrame['Region Name'] == "Darling Downs - Maranoa"]
     df = df.drop('State/Territory', axis=1)
@@ -249,7 +249,7 @@ def make_modf(dataFrame):
     return df
 
 #Create a dataframe for the occupation by employment data of Queensland
-@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400, max_entries=1)
 def make_qoedf():
     df = pd.read_excel(occupationemploymentlink, sheet_name=2)
     df.drop(df[df['Region Name'] != "Queensland"].index, inplace = True)
@@ -257,13 +257,13 @@ def make_qoedf():
     return df
 
 #Create a dataframe for the occupation by employment data of the regional areas
-@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400, max_entries=1)
 def make_regionoedf():
     df = pd.read_excel(occupationemploymentlink, sheet_name=1)
     return df
 
 #Create a dataframe for the occupation by employment data of Toowoomba
-@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400, max_entries=1)
 def make_toedf(dataFrame):
     df = dataFrame.loc[dataFrame['Region Name'] == "Toowoomba"]
     df = df.drop('State/Territory', axis=1)
@@ -271,7 +271,7 @@ def make_toedf(dataFrame):
     return df
 
 #Create a dataframe for the occupation by employment data of Maranoa
-@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400, max_entries=1)
 def make_moedf(dataFrame):
     df = dataFrame.loc[dataFrame['Region Name'] == "Darling Downs - Maranoa"]
     df = df.drop('State/Territory', axis=1)
@@ -423,7 +423,7 @@ def map_func():
                 st.write('The Maranoa region is located to the west of the Darling Downs and is a semi-arid landscape dominated by grasslands and woodlands. The region is characterized by its rugged mountain ranges, including the Great Dividing Range, the Carnarvon Range, and the Expedition Range. The Maranoa is also home to several national parks, including the Maranoa-Balonne and the Idalia National Parks.')
 
 #Function for snapshot page
-@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400, max_entries=1)
 def snapshot_func():
     st.markdown('# Snapshot Data')
     st.markdown('## Unemployment Rate')
@@ -596,7 +596,7 @@ def snapshot_func():
             st.write('Data from ABS Labour Force')
 
 #Function for timeseries page
-@st.cache_data(ttl=86400, experimental_allow_widgets=True)
+@st.cache_data(ttl=86400, max_entries=1, experimental_allow_widgets=True)
 def timeseries_func():
     st.markdown('# Time Series Data')
     percent_label = "(%)"
@@ -653,7 +653,7 @@ def timeseries_func():
             st.write('Data from ABS Labour Force')
 
 #Function for labour force page
-@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400, max_entries=1)
 def labourforce_func():
     st.markdown('# Labour Force Data')
     with st.container():
@@ -724,7 +724,7 @@ def labourforce_func():
                 st.write('Data from ABS Labour Force')
 
 #Function for employment by industry page
-@st.cache_data(ttl=86400, experimental_allow_widgets=True)
+@st.cache_data(ttl=86400, max_entries=1, experimental_allow_widgets=True)
 def employmentindustry_func():
     st.markdown('# Employment by Industry')
     with st.container():
@@ -779,7 +779,7 @@ def employmentindustry_func():
             st.write('Data from ABS Labour Force')
 
 #Function for employment projections page
-@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400, max_entries=1)
 def employmentprojections_func():
     st.markdown('# Employment Projections for the Next 5 Years')
     st.markdown('### Toowoomba and Darling Downs - Maranoa')
@@ -796,7 +796,7 @@ def employmentprojections_func():
             st.write('The data here is an aggregate of of all the SA4 areas in Queensland except for those that are apart of Greater Brisbane.')
 
 #Function for largest employing occupations page
-@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400, max_entries=1)
 def largestoccupations_func():
     st.markdown('# Largest Employing Occupations')
 
@@ -825,7 +825,7 @@ def largestoccupations_func():
             st.write('ABS Census data based on usual place of residence.')
 
 #Function for employment by occupation
-@st.cache_data(ttl=86400, experimental_allow_widgets=True)
+@st.cache_data(ttl=86400, max_entries=1, experimental_allow_widgets=True)
 def employingoccupations_func():
     st.markdown('# Employment by Occupations')
     with st.container():
@@ -886,7 +886,7 @@ def employingoccupations_func():
             st.write('Data from ABS Labour Force')
 
 #Function for further links page
-@st.cache_data(ttl=86400)
+@st.cache_data(ttl=86400, max_entries=1)
 def furtherlinks_func():
     st.write('# Further Links')
     with st.container():
