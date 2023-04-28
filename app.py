@@ -467,6 +467,7 @@ def snapshot_func():
             st.write('To calculate the unemployment rate, the number of unemployed individuals is divided by the total labor force and multiplied by 100. The labor force includes all individuals who are employed or actively seeking employment.')
             st.write('The rate presented is an average of the last 6 months of original data')
             st.write('Queensland data has been seasonally adjusted and based on the last 3 months of original data')
+            st.write('Data from ABS Labour Force')
 
     st.markdown('## Employment Rate')
     with st.container():
@@ -506,9 +507,10 @@ def snapshot_func():
             
         with st.expander("More Information"):
             st.write('The employment rate is a measure of the percentage of the working-age population that is currently employed.')
-            st.write('To calculate the employment rate, the number of employed individuals is divided by the total working-age population and multiplied by 100. The working-age population includes all individuals who are of working age and are not institutionalized.')
+            st.write('To calculate the employment rate, the number of employed individuals is divided by the total working-age population and multiplied by 100. The working-age population includes all individuals who are of working age and are not institutionalised.')
             st.write('The rate presented is an average of the last 6 months of original data')
             st.write('Queensland data has been seasonally adjusted and based on the last 3 months of original data')
+            st.write('Data from ABS Labour Force')
 
     st.markdown('## Participation Rate')
     with st.container():
@@ -551,6 +553,7 @@ def snapshot_func():
             st.write('To calculate the labor force participation rate, the labor force (which includes employed individuals and those who are unemployed but actively seeking employment) is divided by the total working-age population and multiplied by 100.')
             st.write('The rate presented is an average of the last 6 months of original data')
             st.write('Queensland data has been seasonally adjusted and based on the last 3 months of original data')
+            st.write('Data from ABS Labour Force')
 
     st.markdown('### Other Key Figures')
     with st.container():
@@ -580,7 +583,7 @@ def snapshot_func():
             st.write('The youth unemployment rate is a measure of the percentage of young people (individuals between the ages of 15 and 24) who are unemployed but actively seeking employment.')
             st.write('To calculate the youth unemployment rate, the number of unemployed youth is divided by the total youth labor force (which includes all youth who are either employed or actively seeking employment) and multiplied by 100.')
             st.write('The youth unemployment rate presented is an average of the last 12 months of original data')
-            st.write('The working-age population as those individuals who are between the ages of 15 and 64 and who are not institutionalized.')
+            st.write('The working-age population as those individuals who are between the ages of 15 and 64 and who are not institutionalised.')
             st.write('The working-age population is the must current record of original data')
             st.write('the employed population as individuals who meet the following criteria:')
             st.write('+ Worked for at least one hour in a job for pay or profit during the reference week (the week preceding the survey week)')
@@ -590,6 +593,7 @@ def snapshot_func():
             st.write('It also includes individuals who are self-employed, such as small business owners and contractors.')
             st.write('The employed population is the must current record of original data')
             st.write('Queensland data has been seasonally adjusted')
+            st.write('Data from ABS Labour Force')
 
 #Function for timeseries page
 def timeseries_func():
@@ -604,12 +608,13 @@ def timeseries_func():
         st.plotly_chart(figtt)
         with st.expander("More Information"):
             st.write('The employment rate is a measure of the percentage of the working-age population that is currently employed.')
-            st.write('To calculate the employment rate, the number of employed individuals is divided by the total working-age population and multiplied by 100. The working-age population includes all individuals who are of working age and are not institutionalized.')
+            st.write('To calculate the employment rate, the number of employed individuals is divided by the total working-age population and multiplied by 100. The working-age population includes all individuals who are of working age and are not institutionalised.')
             st.write('The unemployment rate is a measure of the percentage of the labor force that is currently unemployed but actively seeking employment.')
             st.write('To calculate the unemployment rate, the number of unemployed individuals is divided by the total labor force and multiplied by 100. The labor force includes all individuals who are employed or actively seeking employment.')
             st.write('The labor force participation rate is a measure of the percentage of the working-age population that is either employed or actively seeking employment.')
             st.write('To calculate the labor force participation rate, the labor force (which includes employed individuals and those who are unemployed but actively seeking employment) is divided by the total working-age population and multiplied by 100.')
             st.write('The data above is a rolling average of the previous 6 months of original data')
+            st.write('Data from ABS Labour Force')
     
     with st.container():
         st.write('### Darling Downs - Maranoa SA4')
@@ -620,12 +625,13 @@ def timeseries_func():
         st.plotly_chart(figtm)
         with st.expander("More Information"):
             st.write('The employment rate is a measure of the percentage of the working-age population that is currently employed.')
-            st.write('To calculate the employment rate, the number of employed individuals is divided by the total working-age population and multiplied by 100. The working-age population includes all individuals who are of working age and are not institutionalized.')
+            st.write('To calculate the employment rate, the number of employed individuals is divided by the total working-age population and multiplied by 100. The working-age population includes all individuals who are of working age and are not institutionalised.')
             st.write('The unemployment rate is a measure of the percentage of the labor force that is currently unemployed but actively seeking employment.')
             st.write('To calculate the unemployment rate, the number of unemployed individuals is divided by the total labor force and multiplied by 100. The labor force includes all individuals who are employed or actively seeking employment.')
             st.write('The labor force participation rate is a measure of the percentage of the working-age population that is either employed or actively seeking employment.')
             st.write('To calculate the labor force participation rate, the labor force (which includes employed individuals and those who are unemployed but actively seeking employment) is divided by the total working-age population and multiplied by 100.')
             st.write('The data above is a rolling average of the previous 6 months of original data')
+            st.write('Data from ABS Labour Force')
     
     with st.container():
         st.write('### Queensland SA4')
@@ -636,13 +642,14 @@ def timeseries_func():
         st.plotly_chart(figtq)
         with st.expander("More Information"):
             st.write('The employment rate is a measure of the percentage of the working-age population that is currently employed.')
-            st.write('To calculate the employment rate, the number of employed individuals is divided by the total working-age population and multiplied by 100. The working-age population includes all individuals who are of working age and are not institutionalized.')
+            st.write('To calculate the employment rate, the number of employed individuals is divided by the total working-age population and multiplied by 100. The working-age population includes all individuals who are of working age and are not institutionalised.')
             st.write('The unemployment rate is a measure of the percentage of the labor force that is currently unemployed but actively seeking employment.')
             st.write('To calculate the unemployment rate, the number of unemployed individuals is divided by the total labor force and multiplied by 100. The labor force includes all individuals who are employed or actively seeking employment.')
             st.write('The labor force participation rate is a measure of the percentage of the working-age population that is either employed or actively seeking employment.')
             st.write('To calculate the labor force participation rate, the labor force (which includes employed individuals and those who are unemployed but actively seeking employment) is divided by the total working-age population and multiplied by 100.')
             st.write('The data above is a rolling average of the previous 3 months of original data')
             st.write('Data has been seasonally adjusted')
+            st.write('Data from ABS Labour Force')
 
 #Function for labour force page
 @st.cache_data
@@ -684,6 +691,7 @@ def labourforce_func():
             st.write('+ Not in the workforce: Individuals who are not employed or unemployed. This includes individuals who are not actively seeking work, such as full-time students, homemakers, and retirees, as well as individuals who are unable to work due to disability, illness, or other reasons.')
             st.write('Whilst Toowoomba and Darling Downs - Maranoa are based on 6 month averages of original data, Queensland is based on current data and seasonally adjusted')
             st.write('The percentage is a representation of the distribution of the 4 categories presented')
+            st.write('Data from ABS Labour Force')
 
     st.markdown('# Labour Force Age Data')
     with st.container():
@@ -694,6 +702,7 @@ def labourforce_func():
             st.metric(label='Combined Age Group total of (55 to 64) and (over 65) years old:', value=format(tagedf.iloc[0][2]+tagedf.iloc[1][2], ',d')+' - '+str(tagedf.iloc[0][3]+tagedf.iloc[1][3])+strPercent)
             with st.expander("More Information"):
                 st.write('Figures based on an average of the last 12 months, with the percentage representing the portion of the categories avaliable.')
+                st.write('Data from ABS Labour Force')
     with st.container():
             st.write('### Darling downs - Maranoa SA4')
             st.write('Data from: ', dateStringAge)
@@ -702,6 +711,7 @@ def labourforce_func():
             st.metric(label='Combined Age Group total of (55 to 64) and (over 65) years old:', value=format(magedf.iloc[0][2]+magedf.iloc[1][2], ',d')+' - '+str(magedf.iloc[0][3]+magedf.iloc[1][3])+strPercent)
             with st.expander("More Information"):
                 st.write('Figures based on an average of the last 12 months, with the percentage representing the portion of the categories avaliable.')
+                st.write('Data from ABS Labour Force')
     with st.container():
             st.write('### Queensland SA4')
             st.write('Data from: ', dateStringAge)
@@ -710,6 +720,7 @@ def labourforce_func():
             st.metric(label='Combined Age Group total of (55 to 64) and (over 65) years old:', value=format(qagedf.iloc[0][2]+qagedf.iloc[1][2], ',d')+' - '+str(qagedf.iloc[0][3]+qagedf.iloc[1][3])+strPercent)
             with st.expander("More Information"):
                 st.write('Figures based on an average of the last 12 months, with the percentage representing the portion of the categories avaliable.')
+                st.write('Data from ABS Labour Force')
 
 #Function for employment by industry page
 def employmentindustry_func():
@@ -728,7 +739,8 @@ def employmentindustry_func():
             st.write('+ Employed part-time: Individuals who work less than 35 hours per week in their main job.')
             st.write('+ Employed male: Reported sex.')
             st.write('+ Employed female: Reported sex.')
-            st.write('Figures are based on four-quarter averages.')
+            st.write('Figures are based on the average of the last 4 quarters. Quarters are Jan-Mar, Apr-Jun, Jul-Sep, Oct-Dec')
+            st.write('Data from ABS Labour Force')
     
     with st.container():
         st.write('### Darling downs - Maranoa SA4')
@@ -744,7 +756,8 @@ def employmentindustry_func():
             st.write('+ Employed part-time: Individuals who work less than 35 hours per week in their main job.')
             st.write('+ Employed male: Reported sex.')
             st.write('+ Employed female: Reported sex.')
-            st.write('Figures are based on four-quarter averages.')
+            st.write('Figures are based on the average of the last 4 quarters. Quarters are Jan-Mar, Apr-Jun, Jul-Sep, Oct-Dec')
+            st.write('Data from ABS Labour Force')
 
     with st.container():
         st.write('### Queensland SA4')
@@ -760,7 +773,8 @@ def employmentindustry_func():
             st.write('+ Employed part-time: Individuals who work less than 35 hours per week in their main job.')
             st.write('+ Employed male: Reported sex.')
             st.write('+ Employed female: Reported sex.')
-            st.write('Figures are based on four-quarter averages.')
+            st.write('Figures are based on the average of the last 4 quarters. Quarters are Jan-Mar, Apr-Jun, Jul-Sep, Oct-Dec')
+            st.write('Data from ABS Labour Force')
 
 #Function for employment projections page
 @st.cache_data
@@ -790,7 +804,7 @@ def largestoccupations_func():
         figot = px.bar(todf, x=todf.columns[2], y=todf.columns[1], height=700, width=800).update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)))
         st.plotly_chart(figot)
         with st.expander("More Information"):
-            st.write('Census data based on usual place of residence.')
+            st.write('ABS Census data based on usual place of residence.')
 
     with st.container():
         st.markdown('### Darling Downs - Maranoa SA4')
@@ -798,7 +812,7 @@ def largestoccupations_func():
         figom = px.bar(modf, x=modf.columns[2], y=modf.columns[1], height=700, width=800).update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)))
         st.plotly_chart(figom)
         with st.expander("More Information"):
-            st.write('Census data based on usual place of residence.')
+            st.write('ABS Census data based on usual place of residence.')
 
     with st.container():
         st.markdown('### Queensland SA4')
@@ -806,7 +820,7 @@ def largestoccupations_func():
         figoq = px.bar(qodf, x=qodf.columns[2], y=qodf.columns[1], height=700, width=800).update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)))
         st.plotly_chart(figoq)
         with st.expander("More Information"):
-            st.write('Census data based on usual place of residence.')
+            st.write('ABS Census data based on usual place of residence.')
 
 #Function for employment by occupation
 def employingoccupations_func():
@@ -827,7 +841,8 @@ def employingoccupations_func():
             st.write('+ Employed male: Reported sex.')
             st.write('+ Employed female: Reported sex.')
             st.write('Pie chart figure is based on distribution of \'Employment by Occupation - Total.\'')
-            st.write('Figures are based on four-quarter averages.')
+            st.write('Figures are based on the average of the last 4 quarters. Quarters are Jan-Mar, Apr-Jun, Jul-Sep, Oct-Dec')
+            st.write('Data from ABS Labour Force')
     
     with st.container():
         st.write('### Darling downs - Maranoa SA4')
@@ -845,7 +860,8 @@ def employingoccupations_func():
             st.write('+ Employed male: Reported sex.')
             st.write('+ Employed female: Reported sex.')
             st.write('Pie chart figure is based on distribution of \'Employment by Occupation - Total.\'')
-            st.write('Figures are based on four-quarter averages.')
+            st.write('Figures are based on the average of the last 4 quarters. Quarters are Jan-Mar, Apr-Jun, Jul-Sep, Oct-Dec')
+            st.write('Data from ABS Labour Force')
 
     with st.container():
         st.write('### Queensland SA4')
@@ -863,7 +879,8 @@ def employingoccupations_func():
             st.write('+ Employed male: Reported sex.')
             st.write('+ Employed female: Reported sex.')
             st.write('Pie chart figure is based on distribution of \'Employment by Occupation - Total.\'')
-            st.write('Figures are based on four-quarter averages.')
+            st.write('Figures are based on the average of the last 4 quarters. Quarters are Jan-Mar, Apr-Jun, Jul-Sep, Oct-Dec')
+            st.write('Data from ABS Labour Force')
 
 #Function for further links page
 def furtherlinks_func():
@@ -902,7 +919,8 @@ def furtherlinks_func():
     with st.container():
         st.write('## Queensland Government Statistician\'s Office (QGSO)')
         st.write('The Queensland Government Statistician\'s Office (QGSO) is the official statistics agency of the Queensland Government in Australia. The agency provides a wide range of statistical data and analysis across various topics.')
-        st.write('Unfortunately QGSO does not provide data by region, regional information can be found on the site when looking at a topic of interest [QSGO Website](https://www.qgso.qld.gov.au/)')
+        st.write('Unfortunately QGSO does not provide data by region, regional information can be found on the site when looking at a topic of interest.')
+        st.write('[QSGO Website](https://www.qgso.qld.gov.au/)')
         with st.expander('Information from the Queensland Government Statistician\'s Office'):
             st.write('1. Population and demographics: QGSO provides data on the population size, distribution, and characteristics of people living in Queensland. This includes information on age, gender, ethnicity, and religion.')
             st.write('2. Economy and industry: QGSO provides data on the Queensland economy and various industries, including employment, income, business activity, and trade.')
@@ -914,7 +932,7 @@ def furtherlinks_func():
 
 #Navigation menu
 st.sidebar.title('Navigation')
-options = st.sidebar.radio('Pages', options = ['Maps', 'Snapshot Data', 'Time Series Data', 'Labour Force Data', 'Employment by Industry', 'Employment Projections', 'Largest Employing Occupations', 'Employment by Occupation', 'Further Links'])
+options = st.sidebar.radio(' ', options = ['Maps', 'Snapshot Data', 'Time Series Data', 'Labour Force Data', 'Employment by Industry', 'Employment Projections', 'Largest Employing Occupations', 'Employment by Occupation', 'Further Links'])
 
 #Options to control pages
 if options == 'Snapshot Data':
