@@ -1,20 +1,20 @@
 div.css-1r6slb0.e1tzin5v1 {
     border: 2px solid #002B5C;
     padding: 10px;
-    background-color: #417630;
+    background-color: #f8f8f8;
 }
 
 h1 {
-    color: #BED600;
+    color: #002B5C;
 }
 h2 {
-    color: #BED600;
+    color: #007836;
 }
 h3 {
-    color: #BED600;
+    color: #007836;
 }
 a:link {
-    color: white;
+    color: black;
 }
 a:visited {
     color: black;
