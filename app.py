@@ -209,14 +209,15 @@ def make_teidf(dataFrame):
     return df
 
 #Create a dataframe for the employment projections of the regional areas of which include Maranoa and Toowoomba
-@st.cache_data(ttl=86400, max_entries=1)
-def make_mtepdf():
-    df = pd.read_excel(employmentprojectionlink, sheet_name=1, skiprows=[0,1], header=0, names=['Region Name','Proxy Region (Greater City / Rest of State)','State/Territory','Industry','Projected Growth (\'000)','Projected Growth (%)'])
-    df2 = df.loc[df['Region Name'] == "Darling Downs - Maranoa"]
-    df2 = df2.drop('State/Territory', axis=1)
-    df2 = df2.drop('Proxy Region (Greater City / Rest of State)', axis=1) 
-    df2.reset_index(drop=True, inplace=True)
-    return df2
+
+#@st.cache_data(ttl=86400, max_entries=1)
+#def make_mtepdf():
+#    df = pd.read_excel(employmentprojectionlink, sheet_name=1, skiprows=[0,1], header=0, names=['Region Name','Proxy Region (Greater City / Rest of State)','State/Territory','Industry','Projected Growth (\'000)','Projected Growth (%)'])
+#    df2 = df.loc[df['Region Name'] == "Darling Downs - Maranoa"]
+#    df2 = df2.drop('State/Territory', axis=1)
+#    df2 = df2.drop('Proxy Region (Greater City / Rest of State)', axis=1) 
+#    df2.reset_index(drop=True, inplace=True)
+#    return df2
 
 #Create a dataframe for the largest employment occupations data of Queensland
 @st.cache_data(ttl=86400, max_entries=1)
@@ -296,13 +297,13 @@ timelink = make_list()[1]
 labourforcelink = make_list()[2]
 agelink = make_list()[3]
 employmentindustrylink = make_list()[4]
-employmentprojectionlink = make_list()[5]
-occupationlink = make_list()[6]
-occupationemploymentlink = make_list()[7]
+#employmentprojectionlink = make_list()[5]
+occupationlink = make_list()[5]
+occupationemploymentlink = make_list()[6]
 
 #Create a string that contains the date of the data
 dateString = make_date(snapshotlink)
-dateStringProjections = make_date(employmentprojectionlink)
+#dateStringProjections = make_date(employmentprojectionlink)
 dateStringLF = make_date(labourforcelink)
 dateStringAge = make_date(agelink)
 dateStringEI = make_date(employmentindustrylink)
@@ -376,7 +377,7 @@ meidf = make_meidf(regioneidf)
 teidf = make_teidf(regioneidf)
 
 #Create employment projection dataframe
-mtepdf = make_mtepdf()
+#mtepdf = make_mtepdf()
 
 #Create Largest Employment OCcupation dataframes
 qodf = make_qodf()
@@ -779,22 +780,23 @@ def employmentindustry_func():
             st.write('Data from ABS Labour Force')
 
 #Function for employment projections page
-@st.cache_data(ttl=86400, max_entries=1)
-def employmentprojections_func():
-    st.markdown('# Employment Projections for the Next 5 Years')
-    st.markdown('### Toowoomba and Darling Downs - Maranoa')
-    st.write('Data from: ', dateStringProjections)
-    mask = mtepdf[mtepdf['Industry'] != 'Total (industry)']
-    figep = px.bar(mask, x=mask.columns[2], y=mask.columns[1], height=700, width=800).update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)))
-    st.plotly_chart(figep)
-    st.metric(label='Expected total job industry growth is:', value=format(int(mtepdf.iloc[19][2]*1000), ',d'))
-    st.markdown("""---""")
-    figep2 = px.bar(mtepdf, x=mtepdf.columns[3], y=mtepdf.columns[1], height=700, width=800).update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)))
-    st.plotly_chart(figep2)
-    with st.expander("More Information"):
-            st.write('This data comes from Jobs and Skills Australia collected in 2020 and released in 2021.')
-            st.write('The data here is an aggregate of of all the SA4 areas in Queensland except for those that are apart of Greater Brisbane.')
+#st.cache_data(ttl=86400, max_entries=1)
+#def employmentprojections_func():
+#    st.markdown('# Employment Projections for the Next 5 Years')
+#    st.markdown('### Toowoomba and Darling Downs - Maranoa')
+#    st.write('Data from: ', dateStringProjections)
+#    mask = mtepdf[mtepdf['Industry'] != 'Total (industry)']
+#    figep = px.bar(mask, x=mask.columns[2], y=mask.columns[1], height=700, width=800).update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)))
+#    st.plotly_chart(figep)
+#    st.metric(label='Expected total job industry growth is:', value=format(int(mtepdf.iloc[19][2]*1000), ',d'))
+#    st.markdown("""---""")
+#    figep2 = px.bar(mtepdf, x=mtepdf.columns[3], y=mtepdf.columns[1], height=700, width=800).update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)))
+#    st.plotly_chart(figep2)
+#    with st.expander("More Information"):
+#            st.write('This data comes from Jobs and Skills Australia collected in 2020 and released in 2021.')
+#            st.write('The data here is an aggregate of of all the SA4 areas in Queensland except for those that are apart of Greater Brisbane.')
 
+            
 #Function for largest employing occupations page
 @st.cache_data(ttl=86400, max_entries=1)
 def largestoccupations_func():
@@ -936,7 +938,7 @@ def furtherlinks_func():
 
 #Navigation menu
 st.sidebar.title('Navigation')
-options = st.sidebar.radio(' ', options = ['Maps', 'Snapshot Data', 'Time Series Data', 'Labour Force Data', 'Employment by Industry', 'Employment Projections', 'Largest Employing Occupations', 'Employment by Occupation', 'Further Links'])
+options = st.sidebar.radio(' ', options = ['Maps', 'Snapshot Data', 'Time Series Data', 'Labour Force Data', 'Employment by Industry', 'Largest Employing Occupations', 'Employment by Occupation', 'Further Links'])
 
 #Options to control pages
 if options == 'Snapshot Data':
@@ -949,8 +951,8 @@ elif options == 'Labour Force Data':
     labourforce_func()
 elif options == 'Employment by Industry':
     employmentindustry_func()
-elif options == 'Employment Projections':
-    employmentprojections_func()
+#elif options == 'Employment Projections':
+#    employmentprojections_func()
 elif options == 'Largest Employing Occupations':
     largestoccupations_func()
 elif options == 'Employment by Occupation':
