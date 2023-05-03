@@ -556,7 +556,7 @@ def snapshot_func():
             st.write('Queensland data has been seasonally adjusted and based on the last 3 months of original data')
             st.write('Data from ABS Labour Force')
 
-    st.markdown('### Other Key Figures')
+    st.markdown('## Other Key Figures')
     with st.container():
         col1, col2, col3 = st.columns(3)
         with col1:
@@ -602,7 +602,7 @@ def timeseries_func():
     st.markdown('# Time Series Data')
     percent_label = "(%)"
     with st.container():
-        st.write('### Toowoomba SA4')
+        st.write('## Toowoomba SA4')
         st.write('Data from: ', dateString, ', displaying the last 5 years')
         y_axis_valuet = st.selectbox('Select Toowoomba Time Series Data', options=toowoombatimedf.columns[-3:])
         y_axis_valuet_title = y_axis_valuet + percent_label
@@ -619,7 +619,7 @@ def timeseries_func():
             st.write('Data from ABS Labour Force')
     
     with st.container():
-        st.write('### Darling Downs - Maranoa SA4')
+        st.write('## Darling Downs - Maranoa SA4')
         st.write('Data from: ', dateString, ', displaying the last 5 years')
         y_axis_valuem = st.selectbox('Select Darling Downs - Maranoa Time Series Data', options=maranoatimedf.columns[-3:])
         y_axis_valuem_title = y_axis_valuem + percent_label
@@ -636,7 +636,7 @@ def timeseries_func():
             st.write('Data from ABS Labour Force')
     
     with st.container():
-        st.write('### Queensland SA4')
+        st.write('## Queensland SA4')
         st.write('Data from: ', dateString, ', displaying the last 5 years')
         y_axis_valueq = st.selectbox('Select Queensland Time Series Data', options=qldtimedf.columns[-3:])
         y_axis_valueq_title = y_axis_valueq + percent_label
@@ -697,7 +697,7 @@ def labourforce_func():
 
     st.markdown('# Labour Force Age Data')
     with st.container():
-            st.write('### Toowoomba SA4')
+            st.write('## Toowoomba SA4')
             st.write('Data from: ', dateStringAge)
             figat = px.bar(tagedf, x=tagedf.columns[2], y=tagedf.columns[1], text=tagedf.columns[3])
             st.plotly_chart(figat)
@@ -706,7 +706,7 @@ def labourforce_func():
                 st.write('Figures based on an average of the last 12 months, with the percentage representing the portion of the categories avaliable.')
                 st.write('Data from ABS Labour Force')
     with st.container():
-            st.write('### Darling downs - Maranoa SA4')
+            st.write('## Darling downs - Maranoa SA4')
             st.write('Data from: ', dateStringAge)
             figam = px.bar(magedf, x=magedf.columns[2], y=magedf.columns[1], text=magedf.columns[3])
             st.plotly_chart(figam)
@@ -715,7 +715,7 @@ def labourforce_func():
                 st.write('Figures based on an average of the last 12 months, with the percentage representing the portion of the categories avaliable.')
                 st.write('Data from ABS Labour Force')
     with st.container():
-            st.write('### Queensland SA4')
+            st.write('## Queensland SA4')
             st.write('Data from: ', dateStringAge)
             figaq = px.bar(qagedf, x=qagedf.columns[2], y=qagedf.columns[1], text=qagedf.columns[3])
             st.plotly_chart(figaq)
@@ -729,7 +729,7 @@ def labourforce_func():
 def employmentindustry_func():
     st.markdown('# Employment by Industry')
     with st.container():
-        st.write('### Toowoomba SA4')
+        st.write('## Toowoomba SA4')
         st.write('Data from: ', dateStringEI)
         x_axis_value = st.selectbox('Select Toowoomba Industry Employment Figure', options=teidf.columns[2:7])
         figeit = px.bar(teidf, x=x_axis_value, y=teidf.columns[1], height=700, width=800, color='Industry').update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)), showlegend=False)
@@ -746,7 +746,7 @@ def employmentindustry_func():
             st.write('Data from ABS Labour Force')
     
     with st.container():
-        st.write('### Darling downs - Maranoa SA4')
+        st.write('## Darling downs - Maranoa SA4')
         st.write('Data from: ', dateStringEI)
         x_axis_value = st.selectbox('Select Darling Down - Maranoa Industry Employment Figure', options=meidf.columns[2:7])
         figeim = px.bar(meidf, x=x_axis_value, y=meidf.columns[1], height=700, width=800, color='Industry').update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)), showlegend=False)
@@ -763,7 +763,7 @@ def employmentindustry_func():
             st.write('Data from ABS Labour Force')
 
     with st.container():
-        st.write('### Queensland SA4')
+        st.write('## Queensland SA4')
         st.write('Data from: ', dateStringEI)
         x_axis_value = st.selectbox('Select Queensland Industry Employment Figure', options=qeidf.columns[2:7])
         figeiq = px.bar(qeidf, x=x_axis_value, y=qeidf.columns[1], height=700, width=800, color='Industry').update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)), showlegend=False)
@@ -803,7 +803,7 @@ def largestoccupations_func():
     st.markdown('# Largest Employing Occupations')
 
     with st.container():
-        st.markdown('### Toowoomba SA4')
+        st.markdown('## Toowoomba SA4')
         st.write('Data from: ', dateStringLO)
         figot = px.bar(todf, x=todf.columns[2], y=todf.columns[1], height=700, width=800).update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)))
         st.plotly_chart(figot)
@@ -811,7 +811,7 @@ def largestoccupations_func():
             st.write('ABS Census data based on usual place of residence.')
 
     with st.container():
-        st.markdown('### Darling Downs - Maranoa SA4')
+        st.markdown('## Darling Downs - Maranoa SA4')
         st.write('Data from: ', dateStringLO)
         figom = px.bar(modf, x=modf.columns[2], y=modf.columns[1], height=700, width=800).update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)))
         st.plotly_chart(figom)
@@ -819,7 +819,7 @@ def largestoccupations_func():
             st.write('ABS Census data based on usual place of residence.')
 
     with st.container():
-        st.markdown('### Queensland SA4')
+        st.markdown('## Queensland SA4')
         st.write('Data from: ', dateStringLO)
         figoq = px.bar(qodf, x=qodf.columns[2], y=qodf.columns[1], height=700, width=800).update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)))
         st.plotly_chart(figoq)
@@ -831,7 +831,7 @@ def largestoccupations_func():
 def employingoccupations_func():
     st.markdown('# Employment by Occupations')
     with st.container():
-        st.write('### Toowoomba SA4')
+        st.write('## Toowoomba SA4')
         st.write('Data from: ', dateStringOE)
         x_axis_value = st.selectbox('Select Toowoomba Occupation Employment Figure', options=toedf.columns[2:7])
         figoet = px.bar(toedf, x=x_axis_value, y=toedf.columns[1], height=500, width=800, color='Occupation').update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)), showlegend=False)
@@ -850,7 +850,7 @@ def employingoccupations_func():
             st.write('Data from ABS Labour Force')
     
     with st.container():
-        st.write('### Darling downs - Maranoa SA4')
+        st.write('## Darling downs - Maranoa SA4')
         st.write('Data from: ', dateStringOE)
         x_axis_value = st.selectbox('Select Darling Down - Maranoa Occupation Employment Figure', options=moedf.columns[2:7])
         figoem = px.bar(moedf, x=x_axis_value, y=moedf.columns[1], height=500, width=800, color='Occupation').update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)), showlegend=False)
@@ -869,7 +869,7 @@ def employingoccupations_func():
             st.write('Data from ABS Labour Force')
 
     with st.container():
-        st.write('### Queensland SA4')
+        st.write('## Queensland SA4')
         st.write('Data from: ', dateStringOE)
         x_axis_value = st.selectbox('Select Queensland Occupation Employment Figure', options=qoedf.columns[2:7])
         figoeq = px.bar(qoedf, x=x_axis_value, y=qoedf.columns[1], height=500, width=800, color='Occupation').update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)), showlegend=False)
