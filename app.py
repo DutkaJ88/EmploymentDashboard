@@ -280,13 +280,13 @@ def make_moedf(dataFrame):
     return df
 
 #Create a dataframe for geopandas containing the shapes of SA4 sreas in Australia
-@st.cache_data
+@st.cache_data(ttl=86400, max_entries=1)
 def make_sa4Areas():
     sa4Areas = geopandas.read_file('https://www.abs.gov.au/statistics/standards/australian-statistical-geography-standard-asgs-edition-3/jul2021-jun2026/access-and-downloads/digital-boundary-files/SA4_2021_AUST_SHP_GDA2020.zip')
     return sa4Areas
 
 #Create dataframe of a specific shape of an SA4 area, input is geopandas shape dataframe from australia and the ASGS code
-@st.cache_data
+@st.cache_data(ttl=86400, max_entries=2)
 def make_mapArea(_dataFrame, sa4Code):
     df = _dataFrame.loc[_dataFrame['SA4_CODE21'] == sa4Code]
     return df
