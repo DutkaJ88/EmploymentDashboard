@@ -283,13 +283,15 @@ def make_moedf(dataFrame):
 @st.cache_data(ttl=86400, max_entries=1)
 def make_sa4Areas():
     df = geopandas.read_file('https://www.abs.gov.au/statistics/standards/australian-statistical-geography-standard-asgs-edition-3/jul2021-jun2026/access-and-downloads/digital-boundary-files/SA4_2021_AUST_SHP_GDA2020.zip')
-    return df
+    df1 = df.loc[df['SA4_CODE21'] == '317']
+    df2 = df.loc[df['SA4_CODE21'] == '307']
+    return df1, df2
 
 #Create dataframe of a specific shape of an SA4 area, input is geopandas shape dataframe from australia and the ASGS code
-@st.cache_data(ttl=86400, max_entries=1)
-def make_mapArea(_dataFrame, sa4Code):
-    df = _dataFrame.loc[_dataFrame['SA4_CODE21'] == sa4Code]
-    return df
+#@st.cache_data(ttl=86400, max_entries=1)
+#def make_mapArea(_dataFrame, sa4Code):
+#    df = _dataFrame.loc[_dataFrame['SA4_CODE21'] == sa4Code]
+#    return df
 
 # Initialise variable of every excel document location, alternatively you could manually place links here for each xlsx file
 snapshotlink = make_list()[0]
@@ -395,7 +397,7 @@ toedf = make_toedf(regionoedf)
 strPercent = '%'
 
 #Create geopanda frame of SA4 Areas
-sa4Areas = make_sa4Areas()
+sa4AreasT, sa4AreasM = make_sa4Areas()
 
 #Function for map page
 def map_func():
@@ -404,7 +406,7 @@ def map_func():
         col1,col2 = st.columns(2)
         with col1:
             st.write('## Toowoomba SA4')
-            sa4AreasT = make_mapArea(sa4Areas, '317')
+            #sa4AreasT = make_mapArea(sa4Areas, '317')
             mapt = folium.Map(location=[-27.566668, 151.949997], zoom_start=9)
             folium.GeoJson(data=sa4AreasT["geometry"]).add_to(mapt)
             st_data = st_folium(mapt, returned_objects=[])
@@ -415,7 +417,7 @@ def map_func():
         
         with col2:
             st.write('## Darling Downs - Maranoa SA4')
-            sa4AreasM = make_mapArea(sa4Areas, '307')
+            #sa4AreasM = make_mapArea(sa4Areas, '307')
             mapm = folium.Map(location=[-27.529991, 150.582068], zoom_start=6)
             folium.GeoJson(data=sa4AreasM["geometry"]).add_to(mapm)
             st_data = st_folium(mapm, returned_objects=[])
