@@ -6,4 +6,3 @@ geopandas
 streamlit_folium
 streamlit
 pandas
-fiona
