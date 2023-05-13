@@ -937,7 +937,7 @@ def furtherlinks_func():
 
 #Navigation menu
 st.sidebar.title('Navigation')
-options = st.sidebar.radio(' ', options = ['Snapshot Data', 'Time Series Data', 'Labour Force Data', 'Employment by Industry', 'Largest Employing Occupations', 'Employment by Occupation', 'Maps', 'Further Links'])
+options = st.sidebar.radio(' ', options = ['Snapshot Data', 'Time Series Data', 'Labour Force Data', 'Employment by Industry', 'Employment by Occupation', 'Largest Employing Occupations', 'Maps', 'Further Links'])
 
 #Options to control pages
 if options == 'Snapshot Data':
