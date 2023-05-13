@@ -606,6 +606,7 @@ def timeseries_func():
         y_axis_valuet = st.selectbox('Select Toowoomba Time Series Data', options=toowoombatimedf.columns[-3:])
         y_axis_valuet_title = y_axis_valuet + percent_label
         figtt = px.line(toowoombatimedf, x='Date', y=y_axis_valuet).update_layout(yaxis_title=y_axis_valuet_title)
+        figtt.update_traces(line_color='#002B5C')
         st.plotly_chart(figtt)
         with st.expander("More Information"):
             st.write('The employment rate is a measure of the percentage of the working-age population that is currently employed.')
@@ -623,6 +624,7 @@ def timeseries_func():
         y_axis_valuem = st.selectbox('Select Darling Downs - Maranoa Time Series Data', options=maranoatimedf.columns[-3:])
         y_axis_valuem_title = y_axis_valuem + percent_label
         figtm = px.line(maranoatimedf, x='Date', y=y_axis_valuem).update_layout(yaxis_title=y_axis_valuem_title)
+        figtm.update_traces(line_color='#002B5C')
         st.plotly_chart(figtm)
         with st.expander("More Information"):
             st.write('The employment rate is a measure of the percentage of the working-age population that is currently employed.')
@@ -640,6 +642,7 @@ def timeseries_func():
         y_axis_valueq = st.selectbox('Select Queensland Time Series Data', options=qldtimedf.columns[-3:])
         y_axis_valueq_title = y_axis_valueq + percent_label
         figtq = px.line(qldtimedf, x='Date', y=y_axis_valueq).update_layout(yaxis_title=y_axis_valueq_title)
+        figtq.update_traces(line_color='#002B5C')
         st.plotly_chart(figtq)
         with st.expander("More Information"):
             st.write('The employment rate is a measure of the percentage of the working-age population that is currently employed.')
@@ -699,6 +702,7 @@ def labourforce_func():
             st.write('## Toowoomba SA4')
             st.write('Data from: ', dateStringAge)
             figat = px.bar(tagedf, x=tagedf.columns[2], y=tagedf.columns[1], text=tagedf.columns[3])
+            figat.update_traces(marker_color='#002B5C')
             st.plotly_chart(figat)
             st.metric(label='Combined Age Group total of (55 to 64) and (over 65) years old:', value=format(tagedf.iloc[0][2]+tagedf.iloc[1][2], ',d')+' - '+str(tagedf.iloc[0][3]+tagedf.iloc[1][3])+strPercent)
             with st.expander("More Information"):
@@ -708,6 +712,7 @@ def labourforce_func():
             st.write('## Darling downs - Maranoa SA4')
             st.write('Data from: ', dateStringAge)
             figam = px.bar(magedf, x=magedf.columns[2], y=magedf.columns[1], text=magedf.columns[3])
+            figam.update_traces(marker_color='#002B5C')
             st.plotly_chart(figam)
             st.metric(label='Combined Age Group total of (55 to 64) and (over 65) years old:', value=format(magedf.iloc[0][2]+magedf.iloc[1][2], ',d')+' - '+str(magedf.iloc[0][3]+magedf.iloc[1][3])+strPercent)
             with st.expander("More Information"):
@@ -717,6 +722,7 @@ def labourforce_func():
             st.write('## Queensland SA4')
             st.write('Data from: ', dateStringAge)
             figaq = px.bar(qagedf, x=qagedf.columns[2], y=qagedf.columns[1], text=qagedf.columns[3])
+            figaq.update_traces(marker_color='#002B5C')
             st.plotly_chart(figaq)
             st.metric(label='Combined Age Group total of (55 to 64) and (over 65) years old:', value=format(qagedf.iloc[0][2]+qagedf.iloc[1][2], ',d')+' - '+str(qagedf.iloc[0][3]+qagedf.iloc[1][3])+strPercent)
             with st.expander("More Information"):
@@ -805,6 +811,7 @@ def largestoccupations_func():
         st.markdown('## Toowoomba SA4')
         st.write('Data from: ', dateStringLO)
         figot = px.bar(todf, x=todf.columns[2], y=todf.columns[1], height=700, width=800).update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)))
+        figot.update_traces(marker_color='#002B5C')
         st.plotly_chart(figot)
         with st.expander("More Information"):
             st.write('ABS Census data based on usual place of residence.')
@@ -813,6 +820,7 @@ def largestoccupations_func():
         st.markdown('## Darling Downs - Maranoa SA4')
         st.write('Data from: ', dateStringLO)
         figom = px.bar(modf, x=modf.columns[2], y=modf.columns[1], height=700, width=800).update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)))
+        figom.update_traces(marker_color='#002B5C')
         st.plotly_chart(figom)
         with st.expander("More Information"):
             st.write('ABS Census data based on usual place of residence.')
@@ -821,6 +829,7 @@ def largestoccupations_func():
         st.markdown('## Queensland SA4')
         st.write('Data from: ', dateStringLO)
         figoq = px.bar(qodf, x=qodf.columns[2], y=qodf.columns[1], height=700, width=800).update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)))
+        figoq.update_traces(marker_color='#002B5C')
         st.plotly_chart(figoq)
         with st.expander("More Information"):
             st.write('ABS Census data based on usual place of residence.')
