@@ -837,7 +837,7 @@ def largestoccupations_func():
 #Function for employment by occupation
 @st.cache_data(ttl=86400, max_entries=1, experimental_allow_widgets=True)
 def employingoccupations_func():
-    st.markdown('# Employment by Occupations')
+    st.markdown('# Employment by Occupation')
     with st.container():
         st.write('## Toowoomba SA4')
         st.write('Data from: ', dateStringOE)
