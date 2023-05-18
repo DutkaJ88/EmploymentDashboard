@@ -740,7 +740,7 @@ def employmentindustry_func():
         figeit = px.bar(teidf, x=x_axis_value, y=teidf.columns[1], height=700, width=800, color='Industry').update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)), showlegend=False)
         st.plotly_chart(figeit)
         st.markdown("""---""")
-        figeipiet = px.pie(teidf, values=teidf.columns[7], names=teidf.columns[1], title=teidf.columns[7], color='Industry', height=600, width=800).update_layout(legend_itemclick=False, legend = dict(font = dict(size=14)))
+        figeipiet = px.pie(teidf, values=teidf.columns[7], names=teidf.columns[1], title='Total Employment Distribution (%)', color='Industry', height=600, width=800).update_layout(legend_itemclick=False, legend = dict(font = dict(size=14)))
         st.plotly_chart(figeipiet)
         with st.expander("More Information"):
             st.write('+ Employed full-time: Individuals who work 35 hours or more per week in their main job.')
@@ -757,7 +757,7 @@ def employmentindustry_func():
         figeim = px.bar(meidf, x=x_axis_value, y=meidf.columns[1], height=700, width=800, color='Industry').update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)), showlegend=False)
         st.plotly_chart(figeim)
         st.markdown("""---""")
-        figeipiem = px.pie(meidf, values=meidf.columns[7], names=meidf.columns[1], title=meidf.columns[7], color='Industry', height=600, width=800).update_layout(legend_itemclick=False, legend = dict(font = dict(size=14)))
+        figeipiem = px.pie(meidf, values=meidf.columns[7], names=meidf.columns[1], title='Total Employment Distribution (%)', color='Industry', height=600, width=800).update_layout(legend_itemclick=False, legend = dict(font = dict(size=14)))
         st.plotly_chart(figeipiem)
         with st.expander("More Information"):
             st.write('+ Employed full-time: Individuals who work 35 hours or more per week in their main job.')
@@ -774,7 +774,7 @@ def employmentindustry_func():
         figeiq = px.bar(qeidf, x=x_axis_value, y=qeidf.columns[1], height=700, width=800, color='Industry').update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)), showlegend=False)
         st.plotly_chart(figeiq)
         st.markdown("""---""")
-        figeipieq = px.pie(qeidf, values=qeidf.columns[7], names=qeidf.columns[1], title=qeidf.columns[7], color='Industry', height=600, width=800).update_layout(legend_itemclick=False, legend = dict(font = dict(size=14)))
+        figeipieq = px.pie(qeidf, values=qeidf.columns[7], names=qeidf.columns[1], title='Total Employment Distribution (%)', color='Industry', height=600, width=800).update_layout(legend_itemclick=False, legend = dict(font = dict(size=14)))
         st.plotly_chart(figeipieq)
         with st.expander("More Information"):
             st.write('+ Employed full-time: Individuals who work 35 hours or more per week in their main job.')
@@ -845,7 +845,7 @@ def employingoccupations_func():
         figoet = px.bar(toedf, x=x_axis_value, y=toedf.columns[1], height=500, width=800, color='Occupation').update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)), showlegend=False)
         st.plotly_chart(figoet)
         st.markdown("""---""")
-        figoepiet = px.pie(toedf, values=toedf.columns[7], names=toedf.columns[1], title=toedf.columns[7], color='Occupation', height=400, width=800).update_layout(legend_itemclick=False, legend = dict(font = dict(size=14)))
+        figoepiet = px.pie(toedf, values=toedf.columns[7], names=toedf.columns[1], title='Total Employment Distribution (%)', color='Occupation', height=400, width=800).update_layout(legend_itemclick=False, legend = dict(font = dict(size=14)))
         st.plotly_chart(figoepiet)
         with st.expander("More Information"):
             st.write('+ Employed total: All employed individuals.')
@@ -864,7 +864,7 @@ def employingoccupations_func():
         figoem = px.bar(moedf, x=x_axis_value, y=moedf.columns[1], height=500, width=800, color='Occupation').update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)), showlegend=False)
         st.plotly_chart(figoem)
         st.markdown("""---""")
-        figoepiem = px.pie(moedf, values=moedf.columns[7], names=moedf.columns[1], title=moedf.columns[7], color='Occupation', height=400, width=800).update_layout(legend_itemclick=False, legend = dict(font = dict(size=14)))
+        figoepiem = px.pie(moedf, values=moedf.columns[7], names=moedf.columns[1], title='Total Employment Distribution (%)', color='Occupation', height=400, width=800).update_layout(legend_itemclick=False, legend = dict(font = dict(size=14)))
         st.plotly_chart(figoepiem)
         with st.expander("More Information"):
             st.write('+ Employed total: All employed individuals.')
@@ -883,7 +883,7 @@ def employingoccupations_func():
         figoeq = px.bar(qoedf, x=x_axis_value, y=qoedf.columns[1], height=500, width=800, color='Occupation').update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)), showlegend=False)
         st.plotly_chart(figoeq)
         st.markdown("""---""")
-        figoepieq = px.pie(qoedf, values=qoedf.columns[7], names=qoedf.columns[1], title=qoedf.columns[7], color='Occupation', height=400, width=800).update_layout(legend_itemclick=False, legend = dict(font = dict(size=14)))
+        figoepieq = px.pie(qoedf, values=qoedf.columns[7], names=qoedf.columns[1], title='Total Employment Distribution (%)', color='Occupation', height=400, width=800).update_layout(legend_itemclick=False, legend = dict(font = dict(size=14)))
         st.plotly_chart(figoepieq)
         with st.expander("More Information"):
             st.write('+ Employed total: All employed individuals.')
