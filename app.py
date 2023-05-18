@@ -827,8 +827,7 @@ def largestoccupations_func():
     with st.container():
         st.markdown('## Toowoomba SA4')
         st.write('Data from: ', dateStringLO)
-        figot = px.bar(todf, x=todf.columns[2], y=todf.columns[1], height=700, width=800).update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)))
-        figot.update_traces(marker_color='#002B5C')
+        figot = px.bar(todf, x=todf.columns[2], y=todf.columns[1], height=700, width=800, color='Occupation').update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)), showlegend=False)
         st.plotly_chart(figot)
         with st.expander("More Information"):
             st.write('ABS Census data based on usual place of residence.')
@@ -836,8 +835,7 @@ def largestoccupations_func():
     with st.container():
         st.markdown('## Darling Downs - Maranoa SA4')
         st.write('Data from: ', dateStringLO)
-        figom = px.bar(modf, x=modf.columns[2], y=modf.columns[1], height=700, width=800).update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)))
-        figom.update_traces(marker_color='#002B5C')
+        figom = px.bar(modf, x=modf.columns[2], y=modf.columns[1], height=700, width=800, color='Occupation').update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)), showlegend=False)
         st.plotly_chart(figom)
         with st.expander("More Information"):
             st.write('ABS Census data based on usual place of residence.')
@@ -845,8 +843,7 @@ def largestoccupations_func():
     with st.container():
         st.markdown('## Queensland')
         st.write('Data from: ', dateStringLO)
-        figoq = px.bar(qodf, x=qodf.columns[2], y=qodf.columns[1], height=700, width=800).update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)))
-        figoq.update_traces(marker_color='#002B5C')
+        figoq = px.bar(qodf, x=qodf.columns[2], y=qodf.columns[1], height=700, width=800, color='Occupation').update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)), showlegend=False)
         st.plotly_chart(figoq)
         with st.expander("More Information"):
             st.write('ABS Census data based on usual place of residence.')
