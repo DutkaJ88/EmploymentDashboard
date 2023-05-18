@@ -19,3 +19,6 @@ a:link {
 a:visited {
     color: black;
 }
+div[data-testid="stMetricValue"] > div {
+    font-size: 2rem;
+}
