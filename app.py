@@ -403,7 +403,8 @@ def map_func():
     with st.container():
         col1,col2 = st.columns(2)
         with col1:
-            st.write('## Toowoomba SA4')
+            st.write('## Toowoomba')
+            st.write('## SA4')
             mapt = folium.Map(location=[-27.566668, 151.949997], zoom_start=9)
             folium.GeoJson(data=sa4AreasT["geometry"]).add_to(mapt)
             st_data = st_folium(mapt, returned_objects=[])
@@ -413,7 +414,8 @@ def map_func():
                 st.write('Toowoomba itself is situated on a plateau about 700 meters above sea level, making it one of the higher cities in Australia. It is known for its temperate climate, with mild to warm summers and cool winters. The city is also often referred to as the "Garden City" due to its many parks and gardens, including the Japanese Garden and the Botanic Gardens.')
         
         with col2:
-            st.write('## Darling Downs - Maranoa SA4')
+            st.write('## Darling Downs')
+            st.write('## Maranoa SA4')
             mapm = folium.Map(location=[-27.529991, 150.582068], zoom_start=6)
             folium.GeoJson(data=sa4AreasM["geometry"]).add_to(mapm)
             st_data = st_folium(mapm, returned_objects=[])
@@ -430,7 +432,8 @@ def snapshot_func():
     with st.container():
         col1, col2, col3 = st.columns(3)
         with col1:
-            st.write('### Toowoomba SA4')
+            st.write('### Toowoomba')
+            st.write('### SA4')
             st.write('Data from: ', dateString)
             st.metric(label='Current Unemployment Rate', value=str(toowoombasnapshotdf.iloc[0][5])+strPercent)
             st.write(' ')
@@ -441,7 +444,8 @@ def snapshot_func():
             st.metric(label='Highest Unemployment Rate:', value=str(ttUEmaxdf.iloc[-1][3])+strPercent)
 
         with col2:
-            st.write('### Darling Downs - Maranoa SA4')
+            st.write('### Darling Downs')
+            st.write('### Maranoa SA4')
             st.write('Data from: ', dateString)
             st.metric(label='Current Unemployment Rate', value=str(maranoasnapshotdf.iloc[0][5])+strPercent)
             st.write(' ')
@@ -452,7 +456,8 @@ def snapshot_func():
             st.metric(label='Highest Unemployment Rate:', value=str(mtUEmaxdf.iloc[-1][3])+strPercent)
 
         with col3:
-            st.write('### Queensland SA4')
+            st.write('### Queensland')
+            st.write('### State')
             st.write('Data from: ', dateString)
             st.metric(label='Current Unemployment Rate', value=str(qldsnapshotdf.iloc[0][5])+strPercent)
             st.write(' ')
@@ -473,7 +478,8 @@ def snapshot_func():
     with st.container():
         col1, col2, col3 = st.columns(3)
         with col1:
-            st.write('### Toowoomba SA4')
+            st.write('### Toowoomba')
+            st.write('### SA4')
             st.write('Data from: ', dateString)
             st.metric(label='Current Employment Rate', value=str(toowoombasnapshotdf.iloc[0][3])+strPercent)
             st.write('### Previous 5 years')
@@ -484,7 +490,8 @@ def snapshot_func():
             st.metric(label='Highest Employment Rate:', value=str(ttEmaxdf.iloc[-1][2])+strPercent)
 
         with col2:
-            st.write('### Darling Downs - Maranoa SA4')
+            st.write('### Darling Downs')
+            st.write('### Maranoa SA4')
             st.write('Data from: ', dateString)
             st.metric(label='Current Employment Rate', value=str(maranoasnapshotdf.iloc[0][3])+strPercent)
             st.write('### Previous 5 years')
@@ -495,7 +502,8 @@ def snapshot_func():
             st.metric(label='Highest Employment Rate:', value=str(mtEmaxdf.iloc[-1][2])+strPercent)
 
         with col3:
-            st.write('### Queensland SA4')
+            st.write('### Queensland')
+            st.write('### State')
             st.write('Data from: ', dateString)
             st.metric(label='Current Employment Rate', value=str(qldsnapshotdf.iloc[0][3])+strPercent)
             st.write('### Previous 5 years')
@@ -516,7 +524,8 @@ def snapshot_func():
     with st.container():
         col1, col2, col3 = st.columns(3)
         with col1:
-            st.write('### Toowoomba SA4')
+            st.write('### Toowoomba')
+            st.write('### SA4')
             st.write('Data from: ', dateString)
             st.metric(label='Current Participation Rate', value=str(toowoombasnapshotdf.iloc[0][4])+strPercent)
             st.write('### Previous 5 years')
@@ -527,7 +536,8 @@ def snapshot_func():
             st.metric(label='Highest Participation Rate:', value=str(ttPmaxdf.iloc[-1][4])+strPercent)
 
         with col2:
-            st.write('### Darling Downs - Maranoa SA4')
+            st.write('### Darling Downs')
+            st.write('### Maranoa SA4')
             st.write('Data from: ', dateString)
             st.metric(label='Current Participation Rate', value=str(maranoasnapshotdf.iloc[0][4])+strPercent)
             st.write('### Previous 5 years')
@@ -538,7 +548,8 @@ def snapshot_func():
             st.metric(label='Highest Participation Rate:', value=str(mtPmaxdf.iloc[-1][4])+strPercent)
 
         with col3:
-            st.write('### Queensland SA4')
+            st.write('### Queensland')
+            st.write('### State')
             st.write('Data from: ', dateString)
             st.metric(label='Current Participation Rate', value=str(qldsnapshotdf.iloc[0][4])+strPercent)
             st.write('### Previous 5 years')
@@ -559,21 +570,24 @@ def snapshot_func():
     with st.container():
         col1, col2, col3 = st.columns(3)
         with col1:
-            st.write('### Toowoomba SA4')
+            st.write('### Toowoomba')
+            st.write('### SA4')
             st.write('Data from: ', dateString)
             st.metric(label='Youth Unemployment (15-24yrs):', value=str(toowoombasnapshotdf.iloc[0][6])+strPercent)
             st.metric(label='Working Age Population (15-64yrs): ', value=format(toowoombasnapshotdf.iloc[0][1], ',d'))
             st.metric(label='Employed Population (15+ yrs): ', value=format(toowoombasnapshotdf.iloc[0][2], ',d'))
 
         with col2:
-            st.write('### Darling Downs - Maranoa SA4')
+            st.write('### Darling Downs')
+            st.write('### Maranoa SA4')
             st.write('Data from: ', dateString)
             st.metric(label='Youth Unemployment (15-24yrs):', value=str(maranoasnapshotdf.iloc[0][6])+strPercent)
             st.metric(label='Working Age Population (15-64yrs): ', value=format(maranoasnapshotdf.iloc[0][1], ',d'))
             st.metric(label='Employed Population (15+ yrs): ', value=format(maranoasnapshotdf.iloc[0][2], ',d'))
 
         with col3:
-            st.write('### Queensland SA4')
+            st.write('### Queensland')
+            st.write('### State')
             st.write('Data from: ', dateString)
             st.metric(label='Youth Unemployment (15-24yrs):', value=str(qldsnapshotdf.iloc[0][6])+strPercent)
             st.metric(label='Working Age Population (15-64yrs): ', value=format(qldsnapshotdf.iloc[0][1], ',d'))
@@ -637,7 +651,7 @@ def timeseries_func():
             st.write('Data from ABS Labour Force')
     
     with st.container():
-        st.write('## Queensland SA4')
+        st.write('## Queensland')
         st.write('Data from: ', dateString, ', displaying the last 5 years')
         y_axis_valueq = st.selectbox('Select Queensland Time Series Data', options=qldtimedf.columns[-3:])
         y_axis_valueq_title = y_axis_valueq + percent_label
@@ -662,7 +676,8 @@ def labourforce_func():
     with st.container():
         col1, col2, col3 = st.columns(3)
         with col1:
-            st.write('### Toowoomba SA4')
+            st.write('### Toowoomba')
+            st.write('### SA4')
             st.write('Data from: ', dateStringLF)
             tlftotal = tlfdf.iloc[0][2] + tlfdf.iloc[1][2] + tlfdf.iloc[2][2] + tlfdf.iloc[3][2]
             st.metric(label='Employed Full-time Persons', value=format(tlfdf.iloc[0][2], ',d')+' - '+str(round((tlfdf.iloc[0][2]/tlftotal*100), 1))+strPercent)
@@ -671,7 +686,8 @@ def labourforce_func():
             st.metric(label='Not in the Labour Force', value=format(tlfdf.iloc[3][2], ',d')+' - '+str(round((tlfdf.iloc[3][2]/tlftotal*100), 1))+strPercent)
 
         with col2:
-            st.write('### Darling Downs - Maranoa SA4')
+            st.write('### Darling Downs')
+            st.write('### Maranoa SA4')
             st.write('Data from: ', dateStringLF)
             mlftotal = mlfdf.iloc[0][2] + mlfdf.iloc[1][2] + mlfdf.iloc[2][2] + mlfdf.iloc[3][2]
             st.metric(label='Employed Full-time Persons', value=format(mlfdf.iloc[0][2], ',d')+' - '+str(round((mlfdf.iloc[0][2]/mlftotal*100), 1))+strPercent)
@@ -680,7 +696,8 @@ def labourforce_func():
             st.metric(label='Not in the Labour Force', value=format(mlfdf.iloc[3][2], ',d')+' - '+str(round((mlfdf.iloc[3][2]/mlftotal*100), 1))+strPercent)
 
         with col3:
-            st.write('### Queensland SA4')
+            st.write('### Queensland')
+            st.write('### State')
             st.write('Data from: ', dateStringLF)
             qlftotal = qldlfdf.iloc[0][2] + qldlfdf.iloc[1][2] + qldlfdf.iloc[2][2] + qldlfdf.iloc[3][2]
             st.metric(label='Employed Full-time Persons', value=format(qldlfdf.iloc[0][2], ',d')+' - '+str(round((qldlfdf.iloc[0][2]/qlftotal*100), 1))+strPercent)
@@ -719,7 +736,7 @@ def labourforce_func():
                 st.write('Figures based on an average of the last 12 months, with the percentage representing the portion of the categories avaliable.')
                 st.write('Data from ABS Labour Force')
     with st.container():
-            st.write('## Queensland SA4')
+            st.write('## Queensland')
             st.write('Data from: ', dateStringAge)
             figaq = px.bar(qagedf, x=qagedf.columns[2], y=qagedf.columns[1], text=qagedf.columns[3])
             figaq.update_traces(marker_color='#002B5C')
@@ -768,7 +785,7 @@ def employmentindustry_func():
             st.write('Data from ABS Labour Force')
 
     with st.container():
-        st.write('## Queensland SA4')
+        st.write('## Queensland')
         st.write('Data from: ', dateStringEI)
         x_axis_value = st.selectbox('Select Queensland Industry Employment Figure', options=qeidf.columns[2:7])
         figeiq = px.bar(qeidf, x=x_axis_value, y=qeidf.columns[1], height=700, width=800, color='Industry').update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)), showlegend=False)
@@ -826,7 +843,7 @@ def largestoccupations_func():
             st.write('ABS Census data based on usual place of residence.')
 
     with st.container():
-        st.markdown('## Queensland SA4')
+        st.markdown('## Queensland')
         st.write('Data from: ', dateStringLO)
         figoq = px.bar(qodf, x=qodf.columns[2], y=qodf.columns[1], height=700, width=800).update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)))
         figoq.update_traces(marker_color='#002B5C')
@@ -877,7 +894,7 @@ def employingoccupations_func():
             st.write('Data from ABS Labour Force')
 
     with st.container():
-        st.write('## Queensland SA4')
+        st.write('## Queensland')
         st.write('Data from: ', dateStringOE)
         x_axis_value = st.selectbox('Select Queensland Occupation Employment Figure', options=qoedf.columns[2:7])
         figoeq = px.bar(qoedf, x=x_axis_value, y=qoedf.columns[1], height=500, width=800, color='Occupation').update_layout(yaxis = dict(tickfont = dict(size=18)),xaxis = dict(tickfont = dict(size=16)), yaxis_title = dict(font = dict(size=22)), xaxis_title = dict(font = dict(size=22)), showlegend=False)
